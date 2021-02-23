@@ -1,31 +1,35 @@
+import 'package:autopayflutter/SplashScreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 void main() {
-  runApp(SplashScreen());
+  runApp(MyApp());
 }
 
-class SplashScreen extends StatefulWidget {
-
+class MyApp extends StatefulWidget {
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  _MyAppState createState() => _MyAppState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    initializeFirebase();
+    super.initState();
+  }
+
+  initializeFirebase() async {
+    await Firebase.initializeApp();
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("AutoPay"),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-
-          ],
-        ),
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SplashScreen(),
     );
   }
 }
