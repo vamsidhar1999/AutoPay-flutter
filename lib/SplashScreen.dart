@@ -1,5 +1,5 @@
 import 'package:autopayflutter/EnterMobile.dart';
-import 'package:autopayflutter/HomePage.dart';
+import 'package:autopayflutter/DashBoard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (user != null) {
       Navigator.pop(context);
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomePage()));
+          context, MaterialPageRoute(builder: (context) => DashBoard()));
     } else {
       Navigator.pop(context);
       Navigator.push(

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:autopayflutter/EnterMobile.dart';
-import 'package:autopayflutter/HomePage.dart';
+import 'package:autopayflutter/DashBoard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -85,7 +85,7 @@ class _OTPState extends State<OTP> {
           if (user != null) {
             Navigator.pop(context);
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => (HomePage())));
+                context, MaterialPageRoute(builder: (context) => (DashBoard())));
           } else {
             print("Error");
           }
@@ -123,7 +123,7 @@ class _OTPState extends State<OTP> {
     //   await _auth.signInWithCredential(phoneAuthCredential);
     //   // showSnackbar("Phone number automatically verified and user signed in: ${_auth.currentUser.uid}");
     //   Navigator.push(
-    //                   context, MaterialPageRoute(builder: (context) => (HomePage())));
+    //                   context, MaterialPageRoute(builder: (context) => (DashBoard())));
     // };
     // PhoneVerificationFailed verificationFailed =
     //     (FirebaseAuthException authException) {
@@ -417,7 +417,7 @@ class _OTPState extends State<OTP> {
                       // Navigator.pop(context);
                       pref.setBool('phone', true);
                       Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(builder: (context) => DashBoard()));
                     } else {
                       print("Error");
                     }

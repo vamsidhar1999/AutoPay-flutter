@@ -1,41 +1,63 @@
 {
   "project_info": {
-    "project_number": "71189712646",
-    "project_id": "autopay-flutter-284e4",
-    "storage_bucket": "autopay-flutter-284e4.appspot.com"
+    "project_number": "716415279306",
+    "firebase_url": "https://autopay-425eb.firebaseio.com",
+    "project_id": "autopay-425eb",
+    "storage_bucket": "autopay-425eb.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:71189712646:android:3a81f325cb21b1c1421887",
+        "mobilesdk_app_id": "1:716415279306:android:d1421ed000c474acef1433",
         "android_client_info": {
-          "package_name": "com.example.autopayflutter"
+          "package_name": "com.example.autopay"
         }
       },
       "oauth_client": [
         {
-          "client_id": "71189712646-g1iep7me9sutalk79t5h4sokh9klo61d.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.autopayflutter",
-            "certificate_hash": "e508aa4f0a8b03c22222a7932b1e34419a378b89"
-          }
-        },
-        {
-          "client_id": "71189712646-2kv8rpss04l66q5jli7l9jnbq9cgea97.apps.googleusercontent.com",
+          "client_id": "716415279306-r8kaeae9lc6jcti8l5ueufqo6h4lnnap.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB_3hOK9fRqzLP5NtytrJZji98VnI-UGCs"
+          "current_key": "AIzaSyBNVEsMdQLtxNStzZXaEEZBMjaVjDWVU4k"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "71189712646-2kv8rpss04l66q5jli7l9jnbq9cgea97.apps.googleusercontent.com",
+              "client_id": "716415279306-r8kaeae9lc6jcti8l5ueufqo6h4lnnap.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:716415279306:android:ed0d9f4c2069f3ceef1433",
+        "android_client_info": {
+          "package_name": "com.example.autopayflutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "716415279306-r8kaeae9lc6jcti8l5ueufqo6h4lnnap.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNVEsMdQLtxNStzZXaEEZBMjaVjDWVU4k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "716415279306-r8kaeae9lc6jcti8l5ueufqo6h4lnnap.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,3 +1,5 @@
+import 'package:autopayflutter/DashBoard.dart';
+import 'package:autopayflutter/Profile.dart';
 import 'package:autopayflutter/SplashScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -29,7 +31,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: Profile(),
     );
   }
 }
