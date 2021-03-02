@@ -41,7 +41,7 @@ class ProfileListItem extends StatelessWidget {
           Icon(
             this.icon,
             size: kSpacingUnit.w * 3.5,
-            color: const Color(0xff6361f3),
+            color: Colors.black,
           ),
           SizedBox(width: kSpacingUnit.w * 2.5),
           Text(
@@ -49,7 +49,7 @@ class ProfileListItem extends StatelessWidget {
             style: kTitleTextStyle.copyWith(
               fontWeight: FontWeight.w500,
               fontSize: kSpacingUnit.w * 2.0,
-              color: const Color(0xff6361f3),
+              color: Colors.black,
             ),
           ),
           Spacer(),
@@ -57,7 +57,7 @@ class ProfileListItem extends StatelessWidget {
             Icon(
               Icons.chevron_right,
               size: kSpacingUnit.w * 2.5,
-              color: const Color(0xff6361f3),
+              color: Colors.black,
             ),
         ],
       ),

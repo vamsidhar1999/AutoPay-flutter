@@ -34,7 +34,6 @@ class _EnterMobileState extends State<EnterMobile> {
   // _EnterMobileState(this.credential);
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -44,7 +43,6 @@ class _EnterMobileState extends State<EnterMobile> {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'UniQ',
       home: Scaffold(
           key: _scaffoldKey,
           //resizeToAvoidBottomPadding: false,
@@ -61,15 +59,7 @@ class _EnterMobileState extends State<EnterMobile> {
                           width: MediaQuery.of(context).size.width,
                           height: SizeConfig1.blockSizeHorizontal * 42,
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment(-1.52, 1.0),
-                              end: Alignment(1.13, -0.95),
-                              colors: [
-                                const Color(0xfffe82a7),
-                                const Color(0xfffe82a7),
-                              ],
-                              stops: [0.0, 1.0],
-                            ),
+                            color: Colors.purple,
                           ),
                         ),
                         Column(
@@ -142,55 +132,58 @@ class _EnterMobileState extends State<EnterMobile> {
                   ],
                 ),
 //                SizedBox(height: SizeConfig1.blockSizeVertical * 3),
-                Container(
-                  width: SizeConfig1.blockSizeHorizontal * 70,
-                  height: SizeConfig1.blockSizeVertical * 7.7,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4.0),
-                    color: const Color(0xffffffff),
-                    border:
-                    Border.all(width: 1.0, color: const Color(0xff707070)),
-                  ),
-                  child: SizedBox(
-                    child: Row(
-                      children: [
-                        Container(
-                          height: SizeConfig1.blockSizeVertical * 8,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.horizontal(
-                                left: Radius.circular(3.0)),
-                            color: Color(0xff555555),
-                          ),
-                          child: Center(
-                            child: IconButton(
-                              icon: Icon(
-                                FontAwesomeIcons.mobileAlt,
-                                color: Colors.white,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0.0, 50, 0.0, 0.0),
+                  child: Container(
+                    width: SizeConfig1.blockSizeHorizontal * 70,
+                    height: SizeConfig1.blockSizeVertical * 7.7,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4.0),
+                      color: const Color(0xffffffff),
+                      border:
+                      Border.all(width: 1.0, color: const Color(0xff707070)),
+                    ),
+                    child: SizedBox(
+                      child: Row(
+                        children: [
+                          Container(
+                            height: SizeConfig1.blockSizeVertical * 8,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.horizontal(
+                                  left: Radius.circular(3.0)),
+                              color: Color(0xff555555),
+                            ),
+                            child: Center(
+                              child: IconButton(
+                                icon: Icon(
+                                  FontAwesomeIcons.mobileAlt,
+                                  color: Colors.white,
+                                ),
+                                onPressed: null,
                               ),
-                              onPressed: null,
                             ),
                           ),
-                        ),
-                        Flexible(
-                          child: TextField(
-                            controller: phone,
-                            textAlignVertical: TextAlignVertical.center,
-                            style: TextStyle(
-                              fontFamily: 'Lato',
-                              fontSize: 30,
-                              fontWeight: FontWeight.w500,
+                          Flexible(
+                            child: TextField(
+                              controller: phone,
+                              textAlignVertical: TextAlignVertical.center,
+                              style: TextStyle(
+                                fontFamily: 'Lato',
+                                fontSize: 30,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              decoration: const InputDecoration(
+                                contentPadding: EdgeInsets.all(10),
+                                border: InputBorder.none,
+                                hintText: '9876544231',
+                                counterText: "",
+                              ),
+                              keyboardType: TextInputType.number,
+                              maxLength: 10,
                             ),
-                            decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.all(10),
-                              border: InputBorder.none,
-                              hintText: '9876544231',
-                              counterText: "",
-                            ),
-                            keyboardType: TextInputType.number,
-                            maxLength: 10,
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -203,7 +196,7 @@ class _EnterMobileState extends State<EnterMobile> {
                     'You\'ll get an OTP on this number',
                     style: TextStyle(
                       fontFamily: 'Lato',
-                      fontSize: 12,
+                      fontSize: 15,
                       color: const Color(0xff43525b),
                     ),
                     textAlign: TextAlign.center,
@@ -218,15 +211,7 @@ class _EnterMobileState extends State<EnterMobile> {
                     height: 66,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(64),
-                      gradient: LinearGradient(
-                        begin: Alignment(-1.35, 2.14),
-                        end: Alignment(1.13, -2.03),
-                        colors: [
-                          const Color(0xfffe82a7),
-                          const Color(0xfffe82a7),
-                        ],
-                        stops: [0.0, 1.0],
-                      ),
+                      color: Colors.purple,
                       boxShadow: [
                         BoxShadow(
                           color: const Color(0x29000000),
@@ -260,7 +245,7 @@ class _EnterMobileState extends State<EnterMobile> {
                         ),
                         elevation: 0,
                         duration: Duration(seconds: 2),
-                        backgroundColor: Color(0xfffe82a7),
+                        backgroundColor: Colors.purple,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(5),

@@ -1,6 +1,10 @@
 import 'package:autopayflutter/BalanceCard.dart';
+import 'package:autopayflutter/Profile.dart';
 import 'package:autopayflutter/color.dart';
 import 'package:autopayflutter/my_flutter_app_icons.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,16 +16,38 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoardState extends State<DashBoard> {
 
+  String name = "";
+  _getDetails() async {
+    await Firebase.initializeApp();
+    final uid = FirebaseAuth.instance.currentUser.uid;
+    var snapShot = await FirebaseFirestore.instance.collection("user").doc(uid).get();
+    setState(() {
+      name = snapShot.data()["name"].toString();
+    });
+  }
+
+  @override
+  void initState() {
+    _getDetails();
+    super.initState();
+  }
+
   Widget _appBar() {
     return Row(
       children: <Widget>[
-        CircleAvatar(
-          backgroundImage: NetworkImage(
-              "https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg.jpg"),
+        GestureDetector(
+          child: CircleAvatar(
+            backgroundImage: NetworkImage(
+                "https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg.jpg"),
+          ),
+          onTap: (){
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Profile()));
+          },
         ),
         SizedBox(width: 15),
         Text("Hello,", style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18,),),
-        Text(' Janth,',
+        Text(' $name',
             style: GoogleFonts.muli(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,

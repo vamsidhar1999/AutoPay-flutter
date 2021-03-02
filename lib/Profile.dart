@@ -1,8 +1,14 @@
+import 'package:autopayflutter/EnterMobile.dart';
 import 'package:autopayflutter/ProfileListItem.dart';
 import 'package:autopayflutter/color.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -10,6 +16,34 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+
+  String name = "";
+  String email = "";
+  String mobile = "";
+  String dob = "";
+  String currency = "";
+  String gender = "";
+
+  _getDetails() async {
+    await Firebase.initializeApp();
+    final uid = FirebaseAuth.instance.currentUser.uid;
+    var snapShot = await FirebaseFirestore.instance.collection("user").doc(uid).get();
+    setState(() {
+      name = snapShot.data()["name"].toString();
+      email = snapShot.data()["email"].toString();
+      mobile = snapShot.data()["mobile"].toString();
+      gender = snapShot.data()["gender"].toString();
+      dob = snapShot.data()["dob"].toString();
+      currency = snapShot.data()["currency"].toString();
+    });
+  }
+
+  @override
+  void initState() {
+    _getDetails();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, height: 896, width: 414, allowFontScaling: true);
@@ -18,7 +52,7 @@ class _ProfileState extends State<Profile> {
       children: <Widget>[
         SizedBox(height: kSpacingUnit.w * 2),
         Text(
-          'Nicolas Adams',
+          name,
           style: kTitleTextStyle.copyWith(color: Colors.white, fontSize: 25),
         ),
         Container(
@@ -40,7 +74,7 @@ class _ProfileState extends State<Profile> {
                   height: kSpacingUnit.w * 2.5,
                   width: kSpacingUnit.w * 2.5,
                   decoration: BoxDecoration(
-                    color: const Color(0xff6361f3),
+                    color: Colors.purple,
                     shape: BoxShape.circle,
                   ),
                   child: Center(
@@ -86,33 +120,42 @@ class _ProfileState extends State<Profile> {
               child: ListView(
                 children: <Widget>[
                   ProfileListItem(
-                    icon: Icons.account_circle_outlined,
-                    text: 'Name',
+                    icon: Icons.phone,
+                    text: mobile,
                     hasNavigation: false,
                   ),
                   ProfileListItem(
                     icon: Icons.mail_outline,
-                    text: 'mail',
+                    text: email,
                     hasNavigation: false,
                   ),
                   ProfileListItem(
-                    icon: Icons.phone,
-                    text: 'mobile',
+                    icon: FontAwesomeIcons.genderless,
+                    text: gender,
                     hasNavigation: false,
                   ),
                   ProfileListItem(
                     icon: CupertinoIcons.calendar,
-                    text: 'Birthday',
+                    text: dob,
                     hasNavigation: false,
                   ),
                   ProfileListItem(
                     icon: Icons.wallet_membership,
-                    text: 'wallet',
+                    text: currency,
                     hasNavigation: false,
                   ),
-                  ProfileListItem(
-                    icon: Icons.logout,
-                    text: 'Logout',
+                  GestureDetector(
+                    child: ProfileListItem(
+                      icon: Icons.logout,
+                      text: 'Logout',
+                    ),
+                    onTap: (){
+                      FirebaseAuth.instance.signOut().then((value) {
+                        Navigator.popUntil(context, (route) => false);
+                        Navigator.push(
+                            context, MaterialPageRoute(builder: (context) => EnterMobile()));
+                      });
+                    },
                   ),
                 ],
               ),
@@ -127,7 +170,7 @@ class _ProfileState extends State<Profile> {
 class HeaderCurvedContainer extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()..color = const Color(0xff6361f3);
+    Paint paint = Paint()..color = Colors.purple;
     Path path = Path()
       ..relativeLineTo(0, 120)
       ..quadraticBezierTo(size.width / 2, 220.0, size.width, 120)

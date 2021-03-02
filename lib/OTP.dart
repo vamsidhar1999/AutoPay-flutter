@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:autopayflutter/EnterMobile.dart';
 import 'package:autopayflutter/DashBoard.dart';
+import 'package:autopayflutter/Register.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -100,57 +102,6 @@ class _OTPState extends State<OTP> {
         },
         codeAutoRetrievalTimeout: (String s){}
     );
-    // FirebaseAuth auth = FirebaseAuth.instance;
-    // await FirebaseAuth.instance.verifyPhoneNumber(
-    //   phoneNumber: "+91" + widget.phone.trim(),
-    //   verificationCompleted: (PhoneAuthCredential credential) async{
-    //     await auth.signInWithCredential(credential);
-    //   },
-    //   verificationFailed: (FirebaseAuthException e) {},
-    //   codeSent: (String verificationId, int resendToken) async {
-    //     String smsCode = 'xxxx';
-    //     a = verificationId;
-    //     // Create a PhoneAuthCredential with the code
-    //     PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: smsCode);
-    //
-    //     // Sign the user in (or link) with the credential
-    //     await auth.signInWithCredential(phoneAuthCredential);
-    //   },
-    //   codeAutoRetrievalTimeout: (String verificationId) {},
-    // );
-    // PhoneVerificationCompleted verificationCompleted =
-    //     (PhoneAuthCredential phoneAuthCredential) async {
-    //   await _auth.signInWithCredential(phoneAuthCredential);
-    //   // showSnackbar("Phone number automatically verified and user signed in: ${_auth.currentUser.uid}");
-    //   Navigator.push(
-    //                   context, MaterialPageRoute(builder: (context) => (DashBoard())));
-    // };
-    // PhoneVerificationFailed verificationFailed =
-    //     (FirebaseAuthException authException) {
-    //   // showSnackbar('Phone number verification failed. Code: ${authException.code}. Message: ${authException.message}');
-    // };
-    // PhoneCodeSent codeSent =
-    //     (String verificationId, [int forceResendingToken]) async {
-    //   // showSnackbar('Please check your phone for the verification code.');
-    //   // _verificationId = verificationId;
-    // };
-    // PhoneCodeAutoRetrievalTimeout codeAutoRetrievalTimeout =
-    //     (String verificationId) {
-    //   // showSnackbar("verification code: " + verificationId);
-    //   // _verificationId = verificationId;
-    // };
-    // try {
-    //   await _auth.verifyPhoneNumber(
-    //       phoneNumber: "+919701671283",
-    //       timeout: const Duration(seconds: 119),
-    //       verificationCompleted: verificationCompleted,
-    //       verificationFailed: verificationFailed,
-    //       codeSent: codeSent,
-    //       codeAutoRetrievalTimeout: codeAutoRetrievalTimeout);
-    // } catch (e) {
-    //   print("Failed to Verify Phone Number: ${e}");
-    // }
-
   }
 
   Widget build(BuildContext context) {
@@ -174,15 +125,7 @@ class _OTPState extends State<OTP> {
                           width: MediaQuery.of(context).size.width,
                           height: SizeConfig.blockSizeHorizontal * 42,
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment(-1.52, 1.0),
-                              end: Alignment(1.13, -0.95),
-                              colors: [
-                                const Color(0xfffe82a7),
-                                const Color(0xfffe82a7),
-                              ],
-                              stops: [0.0, 1.0],
-                            ),
+                            color: Colors.purple,
                           ),
                         ),
                         Column(
@@ -252,12 +195,12 @@ class _OTPState extends State<OTP> {
 
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal * 60,
-                  height: SizeConfig.blockSizeVertical * 5,
+                  height: SizeConfig.blockSizeVertical * 10,
                   child: Text(
                     'We\'ve sent your an SMS with a code to\n' + phone,
                     style: TextStyle(
                       fontFamily: 'Lato',
-                      fontSize: 12,
+                      fontSize: 18,
                       color: const Color(0xff43525b),
                     ),
                     textAlign: TextAlign.center,
@@ -307,7 +250,7 @@ class _OTPState extends State<OTP> {
                         }
                       },
                       pinTheme: PinTheme(
-                        inactiveColor: Color(0xfffe82a7),
+                        inactiveColor: Colors.purple,
                         shape: PinCodeFieldShape.box,
                         borderRadius: BorderRadius.circular(5),
                         fieldHeight: 50,
@@ -351,7 +294,7 @@ class _OTPState extends State<OTP> {
                     "Resend OTP",
                     style: TextStyle(
                         fontFamily: 'Lato',
-                        fontSize: 12,
+                        fontSize: 18,
                         color: const Color(0xff43525b)),
                   ),
                 ),
@@ -367,7 +310,7 @@ class _OTPState extends State<OTP> {
                     "Change Phone Number",
                     style: TextStyle(
                         fontFamily: 'Lato',
-                        fontSize: 12,
+                        fontSize: 18,
                         color: const Color(0xff43525b)),
                   ),
                 ),
@@ -380,15 +323,7 @@ class _OTPState extends State<OTP> {
                     height: 66,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(64),
-                      gradient: LinearGradient(
-                        begin: Alignment(-1.35, 2.14),
-                        end: Alignment(1.13, -2.03),
-                        colors: [
-                          const Color(0xfffe82a7),
-                          const Color(0xfffe82a7),
-                        ],
-                        stops: [0.0, 1.0],
-                      ),
+                      color: Colors.purple,
                       boxShadow: [
                         BoxShadow(
                           color: const Color(0x29000000),
@@ -416,8 +351,17 @@ class _OTPState extends State<OTP> {
                     if (user != null) {
                       // Navigator.pop(context);
                       pref.setBool('phone', true);
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => DashBoard()));
+                      String uid = user.uid;
+                      var snapShot = FirebaseFirestore.instance.collection("user").doc(uid).get();
+                      if(snapShot!=null) {
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(
+                                builder: (context) => DashBoard()));
+                      }else{
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(
+                                builder: (context) => Register()));
+                      }
                     } else {
                       print("Error");
                     }
@@ -447,7 +391,7 @@ class OtpTextField extends StatelessWidget {
         color: const Color(0xffffffff),
         border: Border.all(
           width: 2,
-          color: const Color(0xfffe82a7),
+          color: Colors.purple,
         ),
         boxShadow: [
           BoxShadow(
