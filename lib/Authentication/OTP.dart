@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:autopayflutter/EnterMobile.dart';
+import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/Authentication/EnterMobile.dart';
 import 'package:autopayflutter/DashBoard.dart';
-import 'package:autopayflutter/Register.dart';
+import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/Authentication/Register.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

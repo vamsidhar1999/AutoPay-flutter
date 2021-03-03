@@ -1,6 +1,6 @@
-import 'package:autopayflutter/EnterMobile.dart';
-import 'package:autopayflutter/ProfileListItem.dart';
-import 'package:autopayflutter/color.dart';
+import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/Authentication/EnterMobile.dart';
+import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/profile/ProfileListItem.dart';
+import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/models/color.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';

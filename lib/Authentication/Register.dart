@@ -1,8 +1,8 @@
 import 'dart:collection';
 
 import 'package:autopayflutter/DashBoard.dart';
-import 'package:autopayflutter/Profile.dart';
-import 'package:autopayflutter/color.dart';
+import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/profile/Profile.dart';
+import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/models/color.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

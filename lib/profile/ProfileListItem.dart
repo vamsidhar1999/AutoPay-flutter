@@ -1,4 +1,4 @@
-import 'package:autopayflutter/color.dart';
+import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/models/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

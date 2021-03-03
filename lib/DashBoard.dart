@@ -1,7 +1,9 @@
-import 'package:autopayflutter/BalanceCard.dart';
-import 'package:autopayflutter/Profile.dart';
-import 'package:autopayflutter/color.dart';
-import 'package:autopayflutter/my_flutter_app_icons.dart';
+import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/models/BalanceCard.dart';
+import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/profile/Profile.dart';
+import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/models/color.dart';
+import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/maps/maps_main.dart';
+import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/models/my_flutter_app_icons.dart';
+import 'package:autopayflutter/maps/screens/search.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -55,9 +57,15 @@ class _DashBoardState extends State<DashBoard> {
         Expanded(
           child: SizedBox(),
         ),
-        Icon(
-          Icons.short_text,
-          color: Theme.of(context).iconTheme.color,
+        GestureDetector(
+          child: Icon(
+            Icons.local_parking,
+            color: Theme.of(context).iconTheme.color,
+          ),
+          onTap: (){
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Search()));
+          }
         )
       ],
     );
