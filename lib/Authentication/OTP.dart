@@ -85,9 +85,18 @@ class _OTPState extends State<OTP> {
 
            // await result.user.linkWithCredential(credential1);
           if (user != null) {
-            Navigator.pop(context);
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => (DashBoard())));
+            String uid = user.uid;
+            var snapShot = await FirebaseFirestore.instance.collection("user").doc(uid).get();
+            print(snapShot.data());
+            if(snapShot.data()!=null) {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(
+                      builder: (context) => DashBoard()));
+            }else{
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(
+                      builder: (context) => Register()));
+            }
           } else {
             print("Error");
           }
@@ -352,8 +361,9 @@ class _OTPState extends State<OTP> {
                       // Navigator.pop(context);
                       pref.setBool('phone', true);
                       String uid = user.uid;
-                      var snapShot = FirebaseFirestore.instance.collection("user").doc(uid).get();
-                      if(snapShot!=null) {
+                      var snapShot = await FirebaseFirestore.instance.collection("user").doc(uid).get();
+                      print(snapShot.data());
+                      if(snapShot.data()!=null) {
                         Navigator.pushReplacement(context,
                             MaterialPageRoute(
                                 builder: (context) => DashBoard()));

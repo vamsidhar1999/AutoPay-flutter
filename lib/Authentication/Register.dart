@@ -33,7 +33,7 @@ class _RegisterState extends State<Register> {
       "gender": gender_value == 0 ? "Male": "Female",
       "mobile": user.phoneNumber,
       "currency": _value == 0 ? "diem" : "eth",
-      "notification_token": notification_token
+      "token": notification_token
     };
     print(user.uid);
     FirebaseFirestore.instance
@@ -257,6 +257,7 @@ class _RegisterState extends State<Register> {
                                   width:
                                       MediaQuery.of(context).size.width * 0.4,
                                   decoration: BoxDecoration(
+                                    border: Border.all(),
                                     borderRadius:
                                     BorderRadius.all(Radius.circular(20)),
                                     color: _value == 0
@@ -265,8 +266,11 @@ class _RegisterState extends State<Register> {
                                   ),
                                   child: Column(
                                     children: [
-                                      Image(
-                                        image: AssetImage("images/diem.jpeg"),
+                                      Container(
+                                        height: 50,
+                                        child: Image(
+                                          image: AssetImage("images/diem.jpeg"),
+                                        ),
                                       ),
                                       SizedBox(height: 5,),
                                       Text('Diem', style: kTitleTextStyle.copyWith(
@@ -279,6 +283,7 @@ class _RegisterState extends State<Register> {
                               child: Container(
                                   // height: 50,
                                   decoration: BoxDecoration(
+                                    border: Border.all(),
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20)),
                                     color: _value == 1
@@ -291,8 +296,11 @@ class _RegisterState extends State<Register> {
                                     padding: const EdgeInsets.all(5.0),
                                     child: Column(
                                       children: [
-                                        Image(
-                                          image: AssetImage("images/eth.jpeg"),
+                                        Container(
+                                          height: 50,
+                                          child: Image(
+                                            image: AssetImage("images/eth.jpeg"),
+                                          ),
                                         ),
                                         Text('Ethereum', style: kTitleTextStyle.copyWith(
                                             color: Colors.black, fontSize: 20, fontWeight: FontWeight.normal),),

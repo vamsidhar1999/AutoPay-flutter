@@ -1,9 +1,12 @@
+import 'dart:ffi';
+
 import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/models/BalanceCard.dart';
 import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/profile/Profile.dart';
 import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/models/color.dart';
 import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/maps/maps_main.dart';
 import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/models/my_flutter_app_icons.dart';
 import 'package:autopayflutter/maps/screens/search.dart';
+import 'package:autopayflutter/services/restapi.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -17,21 +20,88 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
-
+  List<String> title = [];
+  List<double> amount = [];
+  List<String> thing = [];
   String name = "";
   _getDetails() async {
-    await Firebase.initializeApp();
+    // await Firebase.initializeApp();
     final uid = FirebaseAuth.instance.currentUser.uid;
-    var snapShot = await FirebaseFirestore.instance.collection("user").doc(uid).get();
+    var snapShot =
+        await FirebaseFirestore.instance.collection("user").doc(uid).get();
+    var snapShot1 = await FirebaseFirestore.instance
+        .collection("user")
+        .doc("zk4jxpIE6VFrtjPVB023")
+        .collection("pending").where("status", isEqualTo: "unpaid")
+        .get();
+    for (int i = 0; i < snapShot1.size; i++) {
+      title.add(snapShot1.docs[i].data()["to"]);
+      amount.add(snapShot1.docs[i].data()["amount"].toDouble());
+      thing.add(snapShot1.docs[i].data()["thing"]);
+    }
+    print(title);
+    print(amount);
+    print(thing);
     setState(() {
       name = snapShot.data()["name"].toString();
     });
+    _set();
   }
 
   @override
   void initState() {
     _getDetails();
     super.initState();
+  }
+
+  _card(String title, double amount, String thing) {
+    Color color = Colors.white;
+    switch (thing) {
+      case "car":
+        color = Colors.purple;
+        break;
+      case "washing machine":
+        color = Colors.orange;
+        break;
+    }
+    return UpcomingCard(
+      title: title,
+      value: amount,
+      color: color,
+    );
+  }
+
+  Widget _pending_transactions(title, amount, thing) {
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Container(
+        height: 200,
+        width: double.maxFinite,
+        child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            // physics: NeverScrollableScrollPhysics(),
+            itemCount: title.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
+                child: Row(
+                  //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    _card(title[index], amount[index], thing[index])
+                  ],
+                ),
+              );
+            }),
+      ),
+    );
+  }
+
+  dynamic listView = Container();
+  _set() {
+    setState(() {
+      listView = _pending_transactions(title, amount, thing);
+    });
   }
 
   Widget _appBar() {
@@ -42,13 +112,19 @@ class _DashBoardState extends State<DashBoard> {
             backgroundImage: NetworkImage(
                 "https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg.jpg"),
           ),
-          onTap: (){
+          onTap: () {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Profile()));
           },
         ),
         SizedBox(width: 15),
-        Text("Hello,", style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18,),),
+        Text(
+          "Hello,",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
         Text(' $name',
             style: GoogleFonts.muli(
                 fontSize: 18,
@@ -58,27 +134,26 @@ class _DashBoardState extends State<DashBoard> {
           child: SizedBox(),
         ),
         GestureDetector(
-          child: Icon(
-            Icons.local_parking,
-            color: Theme.of(context).iconTheme.color,
-          ),
-          onTap: (){
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Search()));
-          }
-        )
+            child: Icon(
+              Icons.local_parking,
+              color: Theme.of(context).iconTheme.color,
+            ),
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Search()));
+            })
       ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-
     Color primaryColor = Colors.purple;
 
     return Scaffold(
       backgroundColor: Color.fromRGBO(244, 244, 244, 1),
       body: SingleChildScrollView(
+        physics: ScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -87,12 +162,12 @@ class _DashBoardState extends State<DashBoard> {
               decoration: BoxDecoration(
                   color: primaryColor, border: Border.all(color: primaryColor)),
               child: Padding(
-                padding: EdgeInsets.only(top: 30.0, right: 15.0, left: 15.0),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 10.0, right: 0, left: 0),
-                  child: _appBar(),
-                )
-              ),
+                  padding: EdgeInsets.only(top: 30.0, right: 15.0, left: 15.0),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 10, bottom: 10.0, right: 0, left: 0),
+                    child: _appBar(),
+                  )),
             ),
             Stack(
               children: <Widget>[
@@ -221,7 +296,8 @@ class _DashBoardState extends State<DashBoard> {
                                     color: Colors.purpleAccent.withOpacity(0.1),
                                     child: IconButton(
                                       padding: EdgeInsets.all(15.0),
-                                      icon: Icon(MyFlutterApp.smart_refrigerator),
+                                      icon:
+                                          Icon(MyFlutterApp.smart_refrigerator),
                                       color: Colors.deepPurple,
                                       iconSize: 30.0,
                                       onPressed: () {},
@@ -266,44 +342,45 @@ class _DashBoardState extends State<DashBoard> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 30.0),
               child: Text(
-                'Upcoming',
+                'Pending Transactions',
                 style: TextStyle(
                     color: Colors.black.withOpacity(0.7),
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 35.0, bottom: 25.0),
-              child: Container(
-                height: 150.0,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: <Widget>[
-                    UpcomingCard(
-                      title: 'Cred Card One',
-                      value: 280.0,
-                      color: Colors.purple,
-                    ),
-                    UpcomingCard(
-                      title: 'Cred Card Text Two',
-                      value: 260.0,
-                      color: Colors.blue,
-                    ),
-                    UpcomingCard(
-                      title: 'Cred Card Text Two',
-                      value: 210.0,
-                      color: Colors.orange,
-                    ),
-                    UpcomingCard(
-                      title: 'Cred Card Text Two',
-                      value: 110.0,
-                      color: Colors.pink,
-                    ),
-                  ],
-                ),
-              ),
-            )
+            listView
+            // Padding(
+            //   padding: EdgeInsets.only(left: 35.0, bottom: 25.0),
+            //   child: Container(
+            //     height: 150.0,
+            //     child: ListView(
+            //       scrollDirection: Axis.horizontal,
+            //       children: <Widget>[
+            //         UpcomingCard(
+            //           title: 'Cred Card One',
+            //           value: 280.0,
+            //           color: Colors.purple,
+            //         ),
+            //         UpcomingCard(
+            //           title: 'Cred Card Text Two',
+            //           value: 260.0,
+            //           color: Colors.blue,
+            //         ),
+            //         UpcomingCard(
+            //           title: 'Cred Card Text Two',
+            //           value: 210.0,
+            //           color: Colors.orange,
+            //         ),
+            //         UpcomingCard(
+            //           title: 'Cred Card Text Two',
+            //           value: 110.0,
+            //           color: Colors.pink,
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // )
           ],
         ),
       ),
@@ -342,11 +419,12 @@ class UpcomingCard extends StatelessWidget {
         width: 120.0,
         decoration: BoxDecoration(
             color: color,
-            borderRadius: BorderRadius.all(Radius.circular(25.0))),
+            borderRadius: BorderRadius.all(Radius.circular(20.0))),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Text(title,
                   style: TextStyle(
@@ -356,7 +434,36 @@ class UpcomingCard extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 22.0,
                       color: Colors.white,
-                      fontWeight: FontWeight.bold))
+                      fontWeight: FontWeight.bold)),
+              Container(
+                width: 60,
+                child: RaisedButton(
+                    child: Text("Pay"),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    color: Colors.white,
+                    onPressed: () async {
+                      var snapShot = await FirebaseFirestore.instance
+                          .collection("user")
+                          .doc("zk4jxpIE6VFrtjPVB023")
+                          .collection("pending")
+                          .where("to", isEqualTo: title)
+                          .get();
+                      var snapShot1 = snapShot.docs[0];
+                      FirebaseFirestore.instance
+                          .collection("user")
+                          .doc("zk4jxpIE6VFrtjPVB023")
+                          .collection("pending")
+                          .doc(snapShot1.id)
+                          .update({"status": "paid"}).then((value){
+                            Navigator.pop(context);
+                        Navigator.push(
+                           context, MaterialPageRoute(builder: (context) => DashBoard()));
+                      });
+                    },
+                ),
+              ),
             ],
           ),
         ),
