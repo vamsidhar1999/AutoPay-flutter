@@ -1,4 +1,5 @@
-
+import 'package:autopayflutter/Authentication/Register.dart';
+import 'package:autopayflutter/Authentication/SplashScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -31,6 +32,7 @@ class _MyAppState extends State<MyApp> {
   initializeFirebase() async {
     await Firebase.initializeApp();
   }
+
   final locatorService = GeoLocatorService();
   final placesService = PlacesService();
   final distanceService = DistanceService();
@@ -45,15 +47,20 @@ class _MyAppState extends State<MyApp> {
         //FutureProvider(create: (context) => distanceService.bestLocation()),
         FutureProvider(create: (context) {
           ImageConfiguration configuration =
-          createLocalImageConfiguration(context);
+              createLocalImageConfiguration(context);
           return BitmapDescriptor.fromAssetImage(
               configuration, 'assets/images/parking-icon.png');
         }),
         ProxyProvider2<Position, BitmapDescriptor, Future<List<Place>>>(
-          update: (context, position, icon, places,) {
+          update: (
+            context,
+            position,
+            icon,
+            places,
+          ) {
             return (position != null)
                 ? placesService.getPlaces(
-                position.latitude, position.longitude, icon)
+                    position.latitude, position.longitude, icon)
                 : null;
           },
         )
