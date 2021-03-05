@@ -1,6 +1,8 @@
-import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/models/color.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../models/color.dart';
 
 class ProfileListItem extends StatelessWidget {
   final IconData icon;

@@ -1,4 +1,4 @@
-import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/Authentication/SplashScreen.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -9,6 +9,8 @@ import 'package:autopayflutter/maps/models/place.dart';
 import 'package:autopayflutter/maps/services/distance_service.dart';
 import 'package:autopayflutter/maps/services/geolocator_service.dart';
 import 'package:autopayflutter/maps/services/places_service.dart';
+
+import 'Authentication/SplashScreen.dart';
 
 void main() {
   runApp(MyApp());

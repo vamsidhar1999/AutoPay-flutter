@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/Authentication/EnterMobile.dart';
+
 import 'package:autopayflutter/DashBoard.dart';
-import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/Authentication/Register.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +12,9 @@ import 'package:flutter/widgets.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'EnterMobile.dart';
+import 'Register.dart';
 
 class SizeConfig {
   static MediaQueryData _mediaQueryData;

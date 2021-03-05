@@ -1,8 +1,4 @@
-import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/models/BalanceCard.dart';
-import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/profile/Profile.dart';
-import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/models/color.dart';
-import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/maps/maps_main.dart';
-import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/models/my_flutter_app_icons.dart';
+
 import 'package:autopayflutter/maps/screens/search.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,6 +6,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'models/BalanceCard.dart';
+import 'models/color.dart';
+import 'models/my_flutter_app_icons.dart';
+import 'profile/Profile.dart';
 
 class DashBoard extends StatefulWidget {
   @override

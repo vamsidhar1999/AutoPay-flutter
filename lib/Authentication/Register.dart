@@ -1,14 +1,16 @@
 import 'dart:collection';
 
 import 'package:autopayflutter/DashBoard.dart';
-import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/profile/Profile.dart';
-import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/models/color.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+
+import '../models/color.dart';
+import '../profile/Profile.dart';
 
 class Register extends StatefulWidget {
   @override

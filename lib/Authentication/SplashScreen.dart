@@ -1,8 +1,10 @@
-import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/Authentication/EnterMobile.dart';
+
 import 'package:autopayflutter/DashBoard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
+import 'EnterMobile.dart';
 
 class SplashScreen extends StatefulWidget {
   @override

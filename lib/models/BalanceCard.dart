@@ -1,6 +1,7 @@
-import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/models/color.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'color.dart';
 
 class BalanceCard extends StatelessWidget {
   const BalanceCard({Key key}) : super(key: key);
