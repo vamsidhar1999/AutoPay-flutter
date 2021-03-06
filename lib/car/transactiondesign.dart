@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Transaction extends StatefulWidget {
+class TransactionDesign extends StatefulWidget {
 
   final String currency,status,hash,timestamp,to,amount,address;
-  const Transaction(
+  const TransactionDesign(
       {Key key,
         this.currency,
         this.status,
@@ -16,10 +16,10 @@ class Transaction extends StatefulWidget {
       : super(key: key);
 
   @override
-  _TransactionState createState() => _TransactionState();
+  _TransactionDesignState createState() => _TransactionDesignState();
 }
 
-class _TransactionState extends State<Transaction> {
+class _TransactionDesignState extends State<TransactionDesign> {
   @override
   Widget build(BuildContext context) {
     String transactionName;

@@ -28,29 +28,14 @@ class _DashBoardState extends State<DashBoard> {
     final uid = FirebaseAuth.instance.currentUser.uid;
     var snapShot =
         await FirebaseFirestore.instance.collection("user").doc(uid).get();
-    var snapShot1 = await FirebaseFirestore.instance
-        .collection("user")
-        .doc("zk4jxpIE6VFrtjPVB023")
-        .collection("pending")
-        .where("status", isEqualTo: "unpaid")
-        .get();
-    for (int i = 0; i < snapShot1.size; i++) {
-      title.add(snapShot1.docs[i].data()["to"]);
-      amount.add(snapShot1.docs[i].data()["amount"].toDouble());
-      thing.add(snapShot1.docs[i].data()["thing"]);
-    }
-    print(title);
-    print(amount);
-    print(thing);
     setState(() {
       name = snapShot.data()["name"].toString();
     });
-    _set();
+    return snapShot;
   }
 
   @override
   void initState() {
-    _getDetails();
     super.initState();
   }
 
@@ -351,38 +336,47 @@ class _DashBoardState extends State<DashBoard> {
                     fontSize: 20.0),
               ),
             ),
-            listView
-            // Padding(
-            //   padding: EdgeInsets.only(left: 35.0, bottom: 25.0),
-            //   child: Container(
-            //     height: 150.0,
-            //     child: ListView(
-            //       scrollDirection: Axis.horizontal,
-            //       children: <Widget>[
-            //         UpcomingCard(
-            //           title: 'Cred Card One',
-            //           value: 280.0,
-            //           color: Colors.purple,
-            //         ),
-            //         UpcomingCard(
-            //           title: 'Cred Card Text Two',
-            //           value: 260.0,
-            //           color: Colors.blue,
-            //         ),
-            //         UpcomingCard(
-            //           title: 'Cred Card Text Two',
-            //           value: 210.0,
-            //           color: Colors.orange,
-            //         ),
-            //         UpcomingCard(
-            //           title: 'Cred Card Text Two',
-            //           value: 110.0,
-            //           color: Colors.pink,
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // )
+            FutureBuilder(
+              future: _getDetails(),
+                builder: (context, snapShot){
+                  if(snapShot.hasData){
+                    return StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance.collection("user").doc("zk4jxpIE6VFrtjPVB023").collection("pending").where("status", isEqualTo: "unpaid").snapshots(),
+                        builder:(context, snapShot){
+                          if (snapShot.connectionState == ConnectionState.waiting) {
+                            return Center(child: CircularProgressIndicator());
+                          }
+                          if (snapShot.hasData) {
+                            List<Widget> usersList = [];
+                            final docs = snapShot.data.docs;
+                            print(docs);
+                            for (var document in docs) {
+                              print(document.data);
+                              var data=document.data();
+                              var title = data["to"];
+                              var thing = data["thing"];
+                              var amount = data["amount"];
+                              Color color = Colors.white;
+                              if(thing == "car")
+                                color = Colors.purple;
+                              else
+                                color = Colors.orange;
+                              usersList.add(UpcomingCard(title: title, value: amount, color: color,));
+                            }
+                            if (usersList.isEmpty) {
+                              return Container();
+                            }
+                            return ListView(
+                              children: usersList,
+                            );
+                          }
+                          return Container();
+                        }
+                    );
+                  }
+                  return Container();
+                }
+            )
           ],
         ),
       ),
