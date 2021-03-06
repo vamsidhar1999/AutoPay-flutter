@@ -22,10 +22,11 @@ class _DashBoardState extends State<DashBoard> {
   List<String> title = [];
   List<double> amount = [];
   List<String> thing = [];
+  String uid = "";
   String name = "";
   _getDetails() async {
     // await Firebase.initializeApp();
-    final uid = FirebaseAuth.instance.currentUser.uid;
+    uid = FirebaseAuth.instance.currentUser.uid;
     var snapShot =
         await FirebaseFirestore.instance.collection("user").doc(uid).get();
     setState(() {
@@ -341,7 +342,7 @@ class _DashBoardState extends State<DashBoard> {
                 builder: (context, snapShot){
                   if(snapShot.hasData){
                     return StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance.collection("user").doc("zk4jxpIE6VFrtjPVB023").collection("pending").where("status", isEqualTo: "unpaid").snapshots(),
+                    stream: FirebaseFirestore.instance.collection("user").doc(uid).collection("pending").where("status", isEqualTo: "unpaid").snapshots(),
                         builder:(context, snapShot){
                           if (snapShot.connectionState == ConnectionState.waiting) {
                             return Center(child: CircularProgressIndicator());
