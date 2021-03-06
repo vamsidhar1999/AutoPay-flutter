@@ -125,22 +125,18 @@ class _BoardState extends State<Board> {
                                    var status=data['status'];
                                    if(true) {
                                      usersList.add(
-                                         Transaction(
-                                             amount: amount,
+                                         TransactionDesign(
+                                             amount: amount.toString(),
                                              status: status,
                                              timestamp: timestamp,
                                              currency: currency,
                                              to: to,
                                              hash: hash,
-                                             status: status,
                                              address: address
-                                         )
+                                         ),
                                      );
                                    }
-
-
                                 }
-
                                 if (usersList.isEmpty) {
                                   return Container(
                                     child: Center(
