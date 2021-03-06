@@ -1,3 +1,4 @@
+import 'package:autopayflutter/car/transactionsboard.dart';
 import 'package:autopayflutter/maps/screens/search.dart';
 import 'package:autopayflutter/services/restapi.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -210,7 +211,9 @@ class _DashBoardState extends State<DashBoard> {
                                       icon: Icon(FontAwesomeIcons.car),
                                       color: Colors.purple,
                                       iconSize: 30.0,
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> Board()));
+                                      },
                                     ),
                                   ),
                                   SizedBox(height: 8.0),
