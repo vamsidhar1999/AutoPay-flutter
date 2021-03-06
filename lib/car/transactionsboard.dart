@@ -126,14 +126,14 @@ class _BoardState extends State<Board> {
                                    if(true) {
                                      usersList.add(
                                          TransactionDesign(
-                                             amount: amount,
+                                             amount: amount.toString(),
                                              status: status,
                                              timestamp: timestamp,
                                              currency: currency,
                                              to: to,
                                              hash: hash,
                                              address: address
-                                         )
+                                         ),
                                      );
                                    }
                                 }
