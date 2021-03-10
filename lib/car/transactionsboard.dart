@@ -45,24 +45,13 @@ class _BoardState extends State<Board> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xfffe82a7),
+        backgroundColor: Colors.purple[500],
         elevation: 0,
         toolbarHeight: MediaQuery.of(context).size.height * 0.1,
 
         leading: GestureDetector(
           onTap: () {
-            //TODO: Back Functionality
-
-            // if(isSearched)
-            // {
-            //   setState(() {
-            //     screens[1] = BoardPage(searchedQuery: '',);
-            //   });
-            // }
-            // else
-            // {
-            //
-            // }
+            Navigator.pop(context);
           },
           child: Icon(
             Icons.arrow_back,
@@ -89,13 +78,7 @@ class _BoardState extends State<Board> {
       body: Container(
           child: Column(
             children: <Widget>[
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.05,
-              ),
 
-              SizedBox(
-                height: 20,
-              ),
               Flexible(
                   child: FutureBuilder(
                     future: getUser(),

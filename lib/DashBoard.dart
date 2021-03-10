@@ -19,20 +19,18 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
-  List<String> title = [];
-  List<double> amount = [];
-  List<String> thing = [];
+
   String uid = "";
   String name = "";
   _getDetails() async {
-    // await Firebase.initializeApp();
+    await Firebase.initializeApp();
     uid = FirebaseAuth.instance.currentUser.uid;
-    var snapShot =
-        await FirebaseFirestore.instance.collection("user").doc(uid).get();
-    setState(() {
-      name = snapShot.data()["name"].toString();
-    });
-    return snapShot;
+    // var snapShot =
+    //     await FirebaseFirestore.instance.collection("user").doc(uid).get();
+    // setState(() {
+    //   name = snapShot.data()["name"].toString();
+    // });
+    return uid;
   }
 
   @override
@@ -81,13 +79,6 @@ class _DashBoardState extends State<DashBoard> {
             }),
       ),
     );
-  }
-
-  dynamic listView = Container();
-  _set() {
-    setState(() {
-      listView = _pending_transactions(title, amount, thing);
-    });
   }
 
   Widget _appBar() {
@@ -348,28 +339,27 @@ class _DashBoardState extends State<DashBoard> {
                             return Center(child: CircularProgressIndicator());
                           }
                           if (snapShot.hasData) {
+                            List<String> titles = [];
+                            List<double> amounts = [];
+                            List<String> things = [];
                             List<Widget> usersList = [];
                             final docs = snapShot.data.docs;
                             print(docs);
                             for (var document in docs) {
                               print(document.data);
-                              var data=document.data();
+                              var data = document.data();
                               var title = data["to"];
                               var thing = data["thing"];
-                              var amount = data["amount"];
-                              Color color = Colors.white;
-                              if(thing == "car")
-                                color = Colors.purple;
-                              else
-                                color = Colors.orange;
-                              usersList.add(UpcomingCard(title: title, value: amount, color: color,));
+                              var amount = data["amount"].toDouble();
+                              titles.add(title);
+                              things.add(thing);
+                              amounts.add(amount);
                             }
-                            if (usersList.isEmpty) {
+                            if (titles.isEmpty) {
                               return Container();
                             }
-                            return ListView(
-                              children: usersList,
-                            );
+                            print(titles);
+                            return _pending_transactions(titles, amounts, things);
                           }
                           return Container();
                         }

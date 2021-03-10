@@ -46,8 +46,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
                 colors: [
-                  Color(0xfffe82a7),
-                  Color(0xfffe82a7),
+                  Color(0xff9C27B0),
+                  Color(0xffBA68C8),
                 ])),
         child: Center(
             child: Column(
@@ -59,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     // Image.asset(
                     //   "assets/images/streelogo.png",
                     // ),
-                    Text('Care',
+                    Text('AutoPay',
                         style: TextStyle(fontSize: 45, color: Colors.white)),
                   ],
                 ),
