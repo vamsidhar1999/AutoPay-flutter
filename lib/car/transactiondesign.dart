@@ -64,6 +64,7 @@ class _TransactionDesignState extends State<TransactionDesign> {
             child: Stack(
               children: <Widget>[
                 CircleAvatar(
+                  backgroundColor: Colors.white,
                   child: Icon(FontAwesomeIcons.parking,color: Colors.purple,),
                   // borderRadius: BorderRadius.circular(15.0),
                   // child: Image.network(

@@ -1,6 +1,7 @@
 import 'package:autopayflutter/car/transactionsboard.dart';
 import 'package:autopayflutter/maps/screens/search.dart';
 import 'package:autopayflutter/services/restapi.dart';
+import 'package:autopayflutter/things/ThingsDashboard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -39,7 +40,7 @@ class _DashBoardState extends State<DashBoard> {
   }
 
   _card(String title, double amount, String thing) {
-    Color color = Colors.white;
+    Color color = Colors.purple;
     switch (thing) {
       case "car":
         color = Colors.purple;
@@ -189,7 +190,7 @@ class _DashBoardState extends State<DashBoard> {
                                       color: Colors.purple,
                                       iconSize: 30.0,
                                       onPressed: () {
-                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> Board()));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> ThingsDashBoard()));
                                       },
                                     ),
                                   ),
@@ -210,7 +211,9 @@ class _DashBoardState extends State<DashBoard> {
                                       icon: Icon(FontAwesomeIcons.lightbulb),
                                       color: Colors.blue,
                                       iconSize: 30.0,
-                                      onPressed: () {},
+                                      onPressed: () {
+
+                                      },
                                     ),
                                   ),
                                   SizedBox(height: 8.0),

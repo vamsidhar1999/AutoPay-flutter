@@ -1,5 +1,6 @@
 import 'package:autopayflutter/DashBoard.dart';
 import 'package:autopayflutter/car/transactiondesign.dart';
+import 'package:autopayflutter/services/restapi.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,17 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
 
   String uid = "";
   String docID = "";
-  _getDetails() async {
+  String balance = "0.0";
+
+  _getBalance() async {
+    var balanceJson = await getBalance("car");
+    setState(() {
+      balance = balanceJson["balance"].toString();
+    });
+    print(balance);
+  }
+
+  Future _getDetails() async {
     // await Firebase.initializeApp();
     uid = FirebaseAuth.instance.currentUser.uid;
     var snapShot =
@@ -24,6 +35,12 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
         .where("thing", isEqualTo: "car").get();
     docID = snapShot1.docs[0].id;
     return snapShot;
+  }
+
+  @override
+  void initState() {
+    _getBalance();
+    super.initState();
   }
 
   @override
@@ -65,176 +82,178 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
                 decoration: BoxDecoration(color: Colors.purple),
               ),
             ),
-            Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                width: double.infinity,
-                child: Padding(
-                  padding: EdgeInsets.only(top: 30.0, right: 15.0, left: 15.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      IconButton(
-                        icon: Icon(Icons.arrow_back),
-                        color: Colors.white,
-                        iconSize: 30.0,
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.notifications_none),
-                        color: Colors.white,
-                        iconSize: 30.0,
-                        onPressed: () {},
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 20.0),
-                child: Text('Dashboard',
-                    style: TextStyle(
-                        color: Colors.white.withOpacity(0.9),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 32.0)),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Container(
+            SingleChildScrollView(
+              physics: ScrollPhysics(),
+              child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
                   width: double.infinity,
-                  height: 370.0,
-                  decoration: BoxDecoration(
-                      color: primaryColor,
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            offset: Offset(0.0, 0.3),
-                            blurRadius: 15.0)
-                      ]),
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 25.0, vertical: 25.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Text(
-                                  '2800,00',
-                                  style: TextStyle(
-                                      color: Colors.purple,
-                                      fontSize: 30.0,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 15.0),
-                                Text(
-                                  'Available Balance',
-                                  style: TextStyle(
-                                    color: Colors.purple,
-                                    fontSize: 14.0,
-                                  ),
-                                )
-                              ],
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.show_chart),
-                              onPressed: () {},
-                              color: Colors.purple,
-                              iconSize: 30.0,
-                            )
-                          ],
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 30.0, right: 15.0, left: 15.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        IconButton(
+                          icon: Icon(Icons.arrow_back),
+                          color: Colors.white,
+                          iconSize: 30.0,
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
                         ),
-                      ),
-                      chartWidget
-                    ],
+                        IconButton(
+                          icon: Icon(Icons.notifications_none),
+                          color: Colors.white,
+                          iconSize: 30.0,
+                          onPressed: () {},
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 25.0, right: 25.0, top: 30.0),
-                child: Text(
-                  'Recent Activity',
-                  style: TextStyle(
-                      color: Colors.black.withOpacity(0.7),
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 20.0),
+                  child: Text('Dashboard',
+                      style: TextStyle(
+                          color: Colors.white.withOpacity(0.9),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 32.0)),
                 ),
-              ),
-              SizedBox(height: 25.0),
-              Flexible(
-                  child: FutureBuilder(
-                    future: _getDetails(),
-                    builder: (context, snapshot) {
-                      print(uid);
-                      if (snapshot.hasData) {
-                        return StreamBuilder<QuerySnapshot>(
-                            stream: FirebaseFirestore.instance.collection('user').doc(uid).collection("thing")
-                                .doc(docID).collection('transactions').limit(5).orderBy("timestamp").snapshots(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                return Center(child: CircularProgressIndicator());
-                              }
-                              if (snapshot.hasData) {
-                                List<Widget> usersList = [];
-                                final docs = snapshot.data.docs;
-                                print(docs);
-                                for (var document in docs) {
-                                  print(document.data);
-                                  var data=document.data();
-                                  var address = data['address'];
-                                  var amount = data['amount'];
-                                  var currency=data['currency'];
-                                  var timestamp=data['timestamp'];
-                                  var to=data['to'];
-                                  var hash=data['hash'];
-                                  var status=data['status'];
-                                  if(true) {
-                                    usersList.add(
-                                      TransactionDesign(
-                                          amount: amount.toString(),
-                                          status: status,
-                                          timestamp: timestamp,
-                                          currency: currency,
-                                          to: to,
-                                          hash: hash,
-                                          address: address
-                                      ),
-                                    );
-                                  }
-                                }
-                                if (usersList.isEmpty) {
-                                  return Container(
-                                    child: Center(
-                                      child: Text(
-                                        '🙁 No Records Found',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20,
-                                            color: Colors.grey),
-                                      ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Container(
+                    width: double.infinity,
+                    height: 370.0,
+                    decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              offset: Offset(0.0, 0.3),
+                              blurRadius: 15.0)
+                        ]),
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 25.0, vertical: 25.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Text(
+                                    balance,
+                                    style: TextStyle(
+                                        color: Colors.purple,
+                                        fontSize: 30.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(height: 15.0),
+                                  Text(
+                                    'Available Balance',
+                                    style: TextStyle(
+                                      color: Colors.purple,
+                                      fontSize: 14.0,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.show_chart),
+                                onPressed: () {},
+                                color: Colors.purple,
+                                iconSize: 30.0,
+                              )
+                            ],
+                          ),
+                        ),
+                        chartWidget
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 25.0, right: 25.0, top: 30.0),
+                  child: Text(
+                    'Recent Activity',
+                    style: TextStyle(
+                        color: Colors.black.withOpacity(0.7),
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                FutureBuilder(
+                  future: _getDetails(),
+                  builder: (context, snapshot) {
+                    print(uid);
+                    if (snapshot.hasData) {
+                      return StreamBuilder<QuerySnapshot>(
+                          stream: FirebaseFirestore.instance.collection('user').doc(uid).collection("thing")
+                              .doc(docID).collection('transactions').limit(5).orderBy("timestamp").snapshots(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            if (snapshot.hasData) {
+                              List<Widget> usersList = [];
+                              final docs = snapshot.data.docs;
+                              // print(docs);
+                              for (var document in docs) {
+                                print(document.data);
+                                var data=document.data();
+                                var address = data['address'];
+                                var amount = data['amount'];
+                                var currency=data['currency'];
+                                var timestamp=data['timestamp'];
+                                var to=data['to'];
+                                var hash=data['hash'];
+                                var status=data['status'];
+                                if(true) {
+                                  usersList.add(
+                                    TransactionDesign(
+                                        amount: amount.toString(),
+                                        status: status,
+                                        timestamp: timestamp,
+                                        currency: currency,
+                                        to: to,
+                                        hash: hash,
+                                        address: address
                                     ),
                                   );
                                 }
-                                return ListView(
-                                  children: usersList,
+                              }
+                              if (usersList.isEmpty) {
+                                return Container(
+                                  child: Center(
+                                    child: Text(
+                                      '🙁 No Records Found',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                          color: Colors.grey),
+                                    ),
+                                  ),
                                 );
                               }
-                              return Container();
-                            });
-                      }
-                      return Container();
-                    },
-                  ))
-            ],
+                              return ListView(
+                                shrinkWrap: true,
+                                children: usersList,
+                              );
+                            }
+                            return Container();
+                          });
+                    }
+                    return Container();
+                  },
+                )
+              ],
           ),
+            ),
         ]
         ),
       ),
