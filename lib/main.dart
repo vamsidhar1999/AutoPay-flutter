@@ -1,6 +1,6 @@
 import 'package:autopayflutter/Authentication/Register.dart';
 import 'package:autopayflutter/Authentication/SplashScreen.dart';
-import 'package:autopayflutter/things/ThingsDashboard.dart';
+import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/car/ThingsDashboard.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -28,6 +28,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     initializeFirebase();
     super.initState();
+
   }
 
   initializeFirebase() async {
@@ -67,6 +68,7 @@ class _MyAppState extends State<MyApp> {
         )
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Parking App',
         theme: ThemeData(
           primarySwatch: Colors.blue,
