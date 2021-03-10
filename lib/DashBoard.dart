@@ -1,3 +1,4 @@
+import 'package:autopayflutter/car/CarRegister.dart';
 import 'package:autopayflutter/car/transactionsboard.dart';
 import 'package:autopayflutter/maps/screens/search.dart';
 import 'package:autopayflutter/services/restapi.dart';
@@ -189,7 +190,7 @@ class _DashBoardState extends State<DashBoard> {
                                       color: Colors.purple,
                                       iconSize: 30.0,
                                       onPressed: () {
-                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> Board()));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> CarRegister()));
                                       },
                                     ),
                                   ),

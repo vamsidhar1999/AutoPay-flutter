@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-Future<Map> createWallet() async {
-  var uri = Uri.parse("https://ethapi.herokuapp.com/createaccount");
+Future<Map> createWallet(currency) async {
+  var uri = Uri.parse("https://"+currency+"api.herokuapp.com/createaccount");
   var response = await http
       .get(uri);
   Map data = jsonDecode(response.body);
