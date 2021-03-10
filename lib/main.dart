@@ -27,6 +27,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     initializeFirebase();
     super.initState();
+
   }
 
   initializeFirebase() async {
@@ -66,6 +67,7 @@ class _MyAppState extends State<MyApp> {
         )
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Parking App',
         theme: ThemeData(
           primarySwatch: Colors.blue,

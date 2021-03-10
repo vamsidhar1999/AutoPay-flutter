@@ -32,17 +32,18 @@ class _CarRegisterState extends State<CarRegister> {
     var currency=_value == 0 ? "diem" : "eth";
     print('hi');
     var wallet= await createWallet(currency);
-    print(wallet);
+    print(wallet['publicKey']);
     final user = FirebaseAuth.instance.currentUser;
        Map<String, dynamic> data = <String, dynamic>{
       "id": number.text,
       "address": wallet['address'],
       "privatekey":wallet['privateKey'] ,
-      'publickey': wallet['publickey'],
+      "publickey": wallet['publicKey'],
       'company':company.text,
        "model": model.text,
       "currency": currency,
-      "thing":"car"
+      "thing":"car",
+       "status": "off"
     };
        print(data);
     // print(user.uid);
