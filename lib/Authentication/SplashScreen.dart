@@ -59,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     // Image.asset(
                     //   "assets/images/streelogo.png",
                     // ),
-                    Text('Care',
+                    Text('AutoPay',
                         style: TextStyle(fontSize: 45, color: Colors.white)),
                   ],
                 ),
