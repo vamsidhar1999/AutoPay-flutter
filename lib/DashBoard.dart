@@ -157,9 +157,8 @@ class _DashBoardState extends State<DashBoard> {
                     decoration: BoxDecoration(color: primaryColor),
                   ),
                 ),
-                Center(child: BalanceCard()),
                 Padding(
-                  padding: EdgeInsets.only(top: 180.0, right: 25.0, left: 25.0),
+                  padding: EdgeInsets.only(top: 80.0, right: 25.0, left: 25.0),
                   child: Container(
                     width: double.infinity,
                     height: 300.0,
@@ -323,7 +322,7 @@ class _DashBoardState extends State<DashBoard> {
               ],
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 30.0),
+              padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 3.0),
               child: Text(
                 'Pending Transactions',
                 style: TextStyle(
@@ -359,17 +358,51 @@ class _DashBoardState extends State<DashBoard> {
                               things.add(thing);
                               amounts.add(amount);
                             }
-                            if (titles.isEmpty) {
-                              return Container();
+                            if(titles.isNotEmpty) {
+                              return _pending_transactions(
+                                  titles, amounts, things);
+                            }else{
+                              return Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                child: Container(
+                                  child: Center(
+                                    child: Text(
+                                      '🙁 No pending transactions',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                          color: Colors.grey),
+                                    ),
+                                  ),
+                                ),
+                              );
                             }
-                            print(titles);
-                            return _pending_transactions(titles, amounts, things);
                           }
-                          return Container();
+                          return Container(
+                            child: Center(
+                              child: Text(
+                                '🙁 No pending transactions',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Colors.grey),
+                              ),
+                            ),
+                          );
                         }
                     );
                   }
-                  return Container();
+                  return Container(
+                    child: Center(
+                      child: Text(
+                        '🙁 No pending transactions',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.grey),
+                      ),
+                    ),
+                  );
                 }
             )
           ],
