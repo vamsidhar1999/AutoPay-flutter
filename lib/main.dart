@@ -1,6 +1,5 @@
 import 'package:autopayflutter/Authentication/Register.dart';
 import 'package:autopayflutter/Authentication/SplashScreen.dart';
-import 'file:///C:/Users/apple/AndroidStudioProjects/autopayflutter/lib/car/ThingsDashboard.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

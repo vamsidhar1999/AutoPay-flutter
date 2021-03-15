@@ -46,7 +46,7 @@ class _MyMapsState extends State<MyMaps> {
         child: MaterialApp(
           title: 'Parking App',
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: Colors.purple,
           ),
           home: Search(),
         ),
