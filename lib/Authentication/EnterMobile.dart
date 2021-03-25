@@ -1,9 +1,7 @@
-
+import 'file:///C:/Users/Lenovo/Desktop/AutoPay-flutter/lib/Authentication/OTP.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/widgets.dart';
-
-import 'OTP.dart';
 
 class SizeConfig1 {
   static MediaQueryData _mediaQueryData;

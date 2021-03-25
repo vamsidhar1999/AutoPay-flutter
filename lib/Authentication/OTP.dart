@@ -1,8 +1,8 @@
 import 'dart:async';
 
-
+import 'file:///C:/Users/Lenovo/Desktop/AutoPay-flutter/lib/Authentication/EnterMobile.dart';
 import 'package:autopayflutter/DashBoard.dart';
-
+import 'file:///C:/Users/Lenovo/Desktop/AutoPay-flutter/lib/Authentication/Register.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +12,6 @@ import 'package:flutter/widgets.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'EnterMobile.dart';
-import 'Register.dart';
 
 class SizeConfig {
   static MediaQueryData _mediaQueryData;
@@ -88,18 +85,9 @@ class _OTPState extends State<OTP> {
 
            // await result.user.linkWithCredential(credential1);
           if (user != null) {
-            String uid = user.uid;
-            var snapShot = await FirebaseFirestore.instance.collection("user").doc(uid).get();
-            print(snapShot.data());
-            if(snapShot.data()!=null) {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(
-                      builder: (context) => DashBoard()));
-            }else{
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(
-                      builder: (context) => Register()));
-            }
+            Navigator.pop(context);
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => (DashBoard())));
           } else {
             print("Error");
           }
@@ -364,9 +352,8 @@ class _OTPState extends State<OTP> {
                       // Navigator.pop(context);
                       pref.setBool('phone', true);
                       String uid = user.uid;
-                      var snapShot = await FirebaseFirestore.instance.collection("user").doc(uid).get();
-                      print(snapShot.data());
-                      if(snapShot.data()!=null) {
+                      var snapShot = FirebaseFirestore.instance.collection("user").doc(uid).get();
+                      if(snapShot!=null) {
                         Navigator.pushReplacement(context,
                             MaterialPageRoute(
                                 builder: (context) => DashBoard()));

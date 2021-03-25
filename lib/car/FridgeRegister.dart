@@ -1,44 +1,58 @@
 import 'dart:collection';
+import 'package:autopayflutter/models/my_flutter_app_icons.dart';
+import 'package:toast/toast.dart';
+import 'package:toast/toast.dart';
 
 import 'package:autopayflutter/DashBoard.dart';
-import 'file:///C:/Users/Lenovo/Desktop/AutoPay-flutter/lib/profile/Profile.dart';
-import 'file:///C:/Users/Lenovo/Desktop/AutoPay-flutter/lib/models/color.dart';
+import 'package:autopayflutter/services/restapi.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
-class Register extends StatefulWidget {
+import '../models/color.dart';
+import '../profile/Profile.dart';
+
+class FridgeRegister extends StatefulWidget {
   @override
-  _RegisterState createState() => _RegisterState();
+  _FridgeRegisterState createState() => _FridgeRegisterState();
 }
 
-class _RegisterState extends State<Register> {
-  TextEditingController name = TextEditingController();
-  TextEditingController email = TextEditingController();
+class _FridgeRegisterState extends State<FridgeRegister> {
+  TextEditingController number = TextEditingController();
+  TextEditingController company = TextEditingController();
+  TextEditingController model=TextEditingController();
   int gender_value = 0;
-  _getNotificationToken() {
-    return FirebaseMessaging().getToken();
-  }
+
 
   _register() async {
+    var currency=_value == 0 ? "diem" : "eth";
+    print('hi');
+    var wallet= await createWallet(currency);
+    print(wallet['publicKey']);
     final user = FirebaseAuth.instance.currentUser;
-    String notification_token = await _getNotificationToken();
-    Map<String, dynamic> data = <String, dynamic>{
-      "name": name.text,
-      "email": email.text,
-      "dob": date.text,
-      "gender": gender_value == 0 ? "Male": "Female",
-      "mobile": user.phoneNumber,
-      "currency": _value == 0 ? "diem" : "eth",
-      "notification_token": notification_token
+       Map<String, dynamic> data = <String, dynamic>{
+      "id": number.text,
+      "address": wallet['address'],
+      "privatekey":wallet['privateKey'] ,
+      "publickey": wallet['publicKey'],
+      'company':company.text,
+       "model": model.text,
+      "currency": currency,
+      "thing":"fridge",
+       "status": "off"
     };
-    print(user.uid);
+       print(data);
+    // print(user.uid);
     FirebaseFirestore.instance
         .collection("user")
         .doc(user.uid)
+        .collection('thing')
+        .doc(number.text)
         .set(data)
         .then((value) {
       Navigator.pop(context);
@@ -125,9 +139,9 @@ class _RegisterState extends State<Register> {
             children: <Widget>[
               Container(
                 child: CircleAvatar(
+                  backgroundColor: Colors.white,
                   radius: kSpacingUnit.w * 5,
-                  backgroundImage: NetworkImage(
-                      "https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg.jpg"),
+                 child:  Icon(MyFlutterApp.smart_refrigerator,),
                 ),
               ),
             ],
@@ -164,87 +178,11 @@ class _RegisterState extends State<Register> {
                   padding: const EdgeInsets.only(left: 12.0, right: 12, bottom: 12),
                   child: ListView(
                     children: <Widget>[
-                      textField("Name", name),
-                      textField("Email", email),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 8.0),
-                        child: Container(
-                          padding: EdgeInsets.fromLTRB(10, 2, 10, 2),
-                          child: TextField(
-                            controller: date,
-                            onTap: () {
-                              _selectDate(context);
-                            },
-                            cursorColor: Colors.purple,
-                            style: TextStyle(fontSize: 20, color: Colors.black),
-                            decoration: InputDecoration(
-                              focusColor: Colors.white,
-                              labelStyle:
-                                  TextStyle(fontSize: 20, color: Colors.black),
-                              labelText: 'Date of Birth',
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.purple),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.purple),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Text('Gender', style: kTitleTextStyle.copyWith(
-                                color: Colors.black, fontSize: 20, fontWeight: FontWeight.normal),),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            GestureDetector(
-                              onTap: () => setState(() => gender_value = 0),
-                              child: Container(
-                                  height: 50,
-                                  width: 30,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                                    color: gender_value == 0
-                                        ? const Color(0xffeda5f0)
-                                        : Colors.grey,
-                                  ),
-                                  child: Center(
-                                    child: Text("M",style: kTitleTextStyle.copyWith(
-                                        color: Colors.white, fontSize: 30),),
-                                  )),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            GestureDetector(
-                              onTap: () => setState(() => gender_value = 1),
-                              child: Center(
-                                child: Container(
-                                    height: 50,
-                                    width: 30,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                                      color: gender_value == 1
-                                          ? const Color(0xffeda5f0)
-                                          : Colors.grey,
-                                    ),
-                                    child: Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Text(
-                                          "F",
-                                          style: kTitleTextStyle.copyWith(
-                                              color: Colors.white, fontSize: 30),
-                                        ))),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      textField("Refrigerator_ID", number),
+                      textField("Brand_Name", company),
+                      textField("Model", model),
+                     
+                      
                       Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Row(
@@ -257,6 +195,7 @@ class _RegisterState extends State<Register> {
                                   width:
                                       MediaQuery.of(context).size.width * 0.4,
                                   decoration: BoxDecoration(
+                                    border: Border.all(),
                                     borderRadius:
                                     BorderRadius.all(Radius.circular(20)),
                                     color: _value == 0
@@ -265,8 +204,11 @@ class _RegisterState extends State<Register> {
                                   ),
                                   child: Column(
                                     children: [
-                                      Image(
-                                        image: AssetImage("images/diem.jpeg"),
+                                      Container(
+                                        height: 50,
+                                        child: Image(
+                                          image: AssetImage("images/diem.jpeg"),
+                                        ),
                                       ),
                                       SizedBox(height: 5,),
                                       Text('Diem', style: kTitleTextStyle.copyWith(
@@ -279,6 +221,7 @@ class _RegisterState extends State<Register> {
                               child: Container(
                                   // height: 50,
                                   decoration: BoxDecoration(
+                                    border: Border.all(),
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20)),
                                     color: _value == 1
@@ -291,8 +234,11 @@ class _RegisterState extends State<Register> {
                                     padding: const EdgeInsets.all(5.0),
                                     child: Column(
                                       children: [
-                                        Image(
-                                          image: AssetImage("images/eth.jpeg"),
+                                        Container(
+                                          height: 50,
+                                          child: Image(
+                                            image: AssetImage("images/eth.jpeg"),
+                                          ),
                                         ),
                                         Text('Ethereum', style: kTitleTextStyle.copyWith(
                                             color: Colors.black, fontSize: 20, fontWeight: FontWeight.normal),),
@@ -307,8 +253,18 @@ class _RegisterState extends State<Register> {
                         padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
                         child: Container(
                           height: 50,
+                          width: 30,
                           child: RaisedButton(
-                            onPressed: _register,
+                            onPressed: (){
+                              print(number.text);
+                              if(number.text==""||model.text==""||company.text==""){
+                                Toast.show("Please enter all the fields", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+                              }
+                              else {
+                                print('hii');
+                                _register();
+                              }
+                            },
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0),
                             ),

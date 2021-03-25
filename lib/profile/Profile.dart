@@ -1,4 +1,6 @@
-
+import 'file:///C:/Users/Lenovo/Desktop/AutoPay-flutter/lib/Authentication/EnterMobile.dart';
+import 'file:///C:/Users/Lenovo/Desktop/AutoPay-flutter/lib/profile/ProfileListItem.dart';
+import 'file:///C:/Users/Lenovo/Desktop/AutoPay-flutter/lib/models/color.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -7,10 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../Authentication/EnterMobile.dart';
-import '../models/color.dart';
-import 'ProfileListItem.dart';
 
 class Profile extends StatefulWidget {
   @override

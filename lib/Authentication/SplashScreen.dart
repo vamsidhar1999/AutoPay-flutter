@@ -1,10 +1,8 @@
-
+import 'file:///C:/Users/Lenovo/Desktop/AutoPay-flutter/lib/Authentication/EnterMobile.dart';
 import 'package:autopayflutter/DashBoard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-
-import 'EnterMobile.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -46,8 +44,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
                 colors: [
-                  Color(0xff9C27B0),
-                  Color(0xffBA68C8),
+                  Color(0xfffe82a7),
+                  Color(0xfffe82a7),
                 ])),
         child: Center(
             child: Column(
@@ -59,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     // Image.asset(
                     //   "assets/images/streelogo.png",
                     // ),
-                    Text('AutoPay',
+                    Text('Care',
                         style: TextStyle(fontSize: 45, color: Colors.white)),
                   ],
                 ),

@@ -1,5 +1,11 @@
-import 'package:autopayflutter/Authentication/Register.dart';
-import 'package:autopayflutter/Authentication/SplashScreen.dart';
+import 'package:autopayflutter/DashBoard.dart';
+
+import 'car/CarRegister.dart';
+import 'car/FridgeRegister.dart';
+import 'car/WasherRegister.dart';
+import 'file:///C:/Users/Lenovo/Desktop/AutoPay-flutter/lib/Authentication/SplashScreen.dart';
+import 'file:///C:/Users/Lenovo/Desktop/AutoPay-flutter/lib/car/ThingsDashboard.dart';
+import 'car/ThingsDashboard.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -10,8 +16,6 @@ import 'package:autopayflutter/maps/models/place.dart';
 import 'package:autopayflutter/maps/services/distance_service.dart';
 import 'package:autopayflutter/maps/services/geolocator_service.dart';
 import 'package:autopayflutter/maps/services/places_service.dart';
-
-import 'Authentication/SplashScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,13 +31,11 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     initializeFirebase();
     super.initState();
-
   }
 
   initializeFirebase() async {
     await Firebase.initializeApp();
   }
-
   final locatorService = GeoLocatorService();
   final placesService = PlacesService();
   final distanceService = DistanceService();
@@ -48,26 +50,20 @@ class _MyAppState extends State<MyApp> {
         //FutureProvider(create: (context) => distanceService.bestLocation()),
         FutureProvider(create: (context) {
           ImageConfiguration configuration =
-              createLocalImageConfiguration(context);
+          createLocalImageConfiguration(context);
           return BitmapDescriptor.fromAssetImage(
               configuration, 'assets/images/parking-icon.png');
         }),
         ProxyProvider2<Position, BitmapDescriptor, Future<List<Place>>>(
-          update: (
-            context,
-            position,
-            icon,
-            places,
-          ) {
+          update: (context, position, icon, places,) {
             return (position != null)
                 ? placesService.getPlaces(
-                    position.latitude, position.longitude, icon)
+                position.latitude, position.longitude, icon)
                 : null;
           },
         )
       ],
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
         title: 'Parking App',
         theme: ThemeData(
           primarySwatch: Colors.blue,
