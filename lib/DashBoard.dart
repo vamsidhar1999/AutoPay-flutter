@@ -1,7 +1,9 @@
 import 'package:autopayflutter/maps/screens/search.dart';
 import 'package:autopayflutter/services/restapi.dart';
 import 'package:autopayflutter/things/CarRegister.dart';
+import 'package:autopayflutter/things/FridgeRegister.dart';
 import 'package:autopayflutter/things/ThingsDashboard.dart';
+import 'package:autopayflutter/things/WasherRegister.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -233,7 +235,7 @@ class _DashBoardState extends State<DashBoard> {
                                         if(snapShot.size>0){
                                           Navigator.push(context, MaterialPageRoute(builder: (context)=> ThingsDashBoard('fridge')));
                                         }else{
-                                          Navigator.push(context, MaterialPageRoute(builder: (context)=> CarRegister()));
+                                          Navigator.push(context, MaterialPageRoute(builder: (context)=> FridgeRegister()));
                                         }
                                       },
                                     ),
@@ -266,7 +268,7 @@ class _DashBoardState extends State<DashBoard> {
                                         if(snapShot.size>0){
                                           Navigator.push(context, MaterialPageRoute(builder: (context)=> ThingsDashBoard('washer')));
                                         }else{
-                                          Navigator.push(context, MaterialPageRoute(builder: (context)=> CarRegister()));
+                                          Navigator.push(context, MaterialPageRoute(builder: (context)=> WasherRegister()));
                                         }
                                       },
                                     ),

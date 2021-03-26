@@ -29,7 +29,7 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
   _getBalance() async {
     var balanceJson = await getBalance(thing);
     setState(() {
-      balance = (double.parse(balanceJson["balance"])/1000000000000).toStringAsFixed(2);
+      balance = (double.parse(balanceJson["balance"].toString())/1000000000000).toStringAsFixed(2);
     });
     print(balance);
   }
