@@ -34,13 +34,14 @@ Future<Map> getBalance(String thing) async {
   return data;
 }
 
-Future<Map> makeTransaction() async {
+Future<Map> makeTransaction(String sender, String privatekey, String receiver, int amount,String currency) async {
+
   var uri = Uri.parse("https://ethapi.herokuapp.com/maketransaction");
   var body = jsonEncode({
-    "sender":"0x1adad368f62d64bb4a6f7af8327ba03dfd7d319a",
-    "privatekey": "556ac69c822e339bc6443d5b58cfe45aadfe1b197293a16c30be59134895b879",
-    "receiver": "0x62697b036fb68B61e15746eCf8950A823a1849F4",
-    "amount": 500
+    "sender": sender,
+    "privatekey": privatekey,
+    "receiver": receiver,
+    "amount": amount
   });
   var response = await http
       .post(uri, body: body, headers: {"Content-Type": "application/json"});

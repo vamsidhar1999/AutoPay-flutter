@@ -1,8 +1,8 @@
 import 'dart:collection';
 
 import 'package:autopayflutter/DashBoard.dart';
-import 'file:///C:/Users/Lenovo/Desktop/AutoPay-flutter/lib/profile/Profile.dart';
-import 'file:///C:/Users/Lenovo/Desktop/AutoPay-flutter/lib/models/color.dart';
+import 'package:autopayflutter/models/color.dart';
+import 'package:autopayflutter/profile/Profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

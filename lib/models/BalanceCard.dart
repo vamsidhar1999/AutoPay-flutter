@@ -1,4 +1,4 @@
-import 'file:///C:/Users/Lenovo/Desktop/AutoPay-flutter/lib/models/color.dart';
+import 'package:autopayflutter/models/color.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

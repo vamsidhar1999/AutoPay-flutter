@@ -1,6 +1,7 @@
-import 'file:///C:/Users/Lenovo/Desktop/AutoPay-flutter/lib/Authentication/EnterMobile.dart';
-import 'file:///C:/Users/Lenovo/Desktop/AutoPay-flutter/lib/profile/ProfileListItem.dart';
-import 'file:///C:/Users/Lenovo/Desktop/AutoPay-flutter/lib/models/color.dart';
+
+import 'package:autopayflutter/Authentication/EnterMobile.dart';
+import 'package:autopayflutter/models/color.dart';
+import 'package:autopayflutter/profile/ProfileListItem.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';

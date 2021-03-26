@@ -1,11 +1,10 @@
+import 'package:autopayflutter/Authentication/SplashScreen.dart';
 import 'package:autopayflutter/DashBoard.dart';
 
-import 'car/CarRegister.dart';
-import 'car/FridgeRegister.dart';
-import 'car/WasherRegister.dart';
-import 'file:///C:/Users/Lenovo/Desktop/AutoPay-flutter/lib/Authentication/SplashScreen.dart';
-import 'file:///C:/Users/Lenovo/Desktop/AutoPay-flutter/lib/car/ThingsDashboard.dart';
-import 'car/ThingsDashboard.dart';
+import 'things/CarRegister.dart';
+import 'things/FridgeRegister.dart';
+import 'things/WasherRegister.dart';
+import 'things/ThingsDashboard.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

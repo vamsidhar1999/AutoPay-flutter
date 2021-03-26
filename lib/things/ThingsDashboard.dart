@@ -1,17 +1,25 @@
 import 'package:autopayflutter/DashBoard.dart';
-import 'package:autopayflutter/car/transactiondesign.dart';
 import 'package:autopayflutter/services/restapi.dart';
+import 'package:autopayflutter/things/transactiondesign.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class ThingsDashBoard extends StatefulWidget {
+  String thing;
+  ThingsDashBoard(this.thing);
+
   @override
-  _ThingsDashBoardState createState() => _ThingsDashBoardState();
+  _ThingsDashBoardState createState() => _ThingsDashBoardState(thing);
 }
 
 class _ThingsDashBoardState extends State<ThingsDashBoard> {
+
+  String thing;
+  _ThingsDashBoardState(this.thing);
+
   Color primaryColor = Colors.white;
 
   String uid = "";
@@ -19,9 +27,9 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
   String balance = "0.0";
 
   _getBalance() async {
-    var balanceJson = await getBalance("car");
+    var balanceJson = await getBalance(thing);
     setState(() {
-      balance = balanceJson["balance"].toString();
+      balance = (double.parse(balanceJson["balance"])/1000000000000).toStringAsFixed(2);
     });
     print(balance);
   }
@@ -32,7 +40,7 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
     var snapShot =
     await FirebaseFirestore.instance.collection("user").doc(uid).get();
     var snapShot1 = await FirebaseFirestore.instance.collection("user").doc(uid).collection("thing")
-        .where("thing", isEqualTo: "car").get();
+        .where("thing", isEqualTo: thing).get();
     docID = snapShot1.docs[0].id;
     return snapShot;
   }
@@ -146,12 +154,21 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
-                                  Text(
-                                    balance,
-                                    style: TextStyle(
-                                        color: Colors.purple,
-                                        fontSize: 30.0,
-                                        fontWeight: FontWeight.bold),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text(
+                                        balance,
+                                        style: TextStyle(
+                                            color: Colors.purple,
+                                            fontSize: 30.0,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(" Diem", style: TextStyle(
+                                          color: Colors.purple,
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.bold),)
+                                    ],
                                   ),
                                   SizedBox(height: 15.0),
                                   Text(
