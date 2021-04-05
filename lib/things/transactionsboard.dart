@@ -89,7 +89,6 @@ class _BoardState extends State<Board> {
                         return StreamBuilder<QuerySnapshot>(
                             stream: FirebaseFirestore.instance.collection('user').doc(uid).collection("thing").doc("AP278098").collection('transactions').snapshots(),
                             builder: (context, snapshot) {
-                              print('akhil');
                               if (snapshot.connectionState == ConnectionState.waiting) {
                                 return Center(child: CircularProgressIndicator());
                               }
