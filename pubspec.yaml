@@ -49,6 +49,7 @@ dependencies:
   flutter_rating_bar: ^3.2.0+1
   charts_flutter: ^0.10.0
   toast: ^0.1.5
+  flutter_spinkit: ^4.1.2
 
 dev_dependencies:
   flutter_test:

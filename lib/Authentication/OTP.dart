@@ -79,15 +79,21 @@ class _OTPState extends State<OTP> {
             user = result.user;
           } catch (e) {
             print(e);
-            print("yes");
           }
 
+          final uid = FirebaseAuth.instance.currentUser.uid;
+          var snapShot = await FirebaseFirestore.instance.collection("user").doc(uid).get();
+
            // await result.user.linkWithCredential(credential1);
-          if (user != null) {
+          if (!snapShot.exists) {
+            Navigator.pop(context);
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => (Register())));
+          } else {
+            print("yes");
             Navigator.pop(context);
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => (DashBoard())));
-          } else {
             print("Error");
           }
 
