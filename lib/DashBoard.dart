@@ -449,23 +449,27 @@ class UpcomingCard extends StatelessWidget {
                     int balance = temp["balance"];
                     int amount = snapShot1.data()["amount"];
                     String currency= snapShot1.data()["currency"];
+                    Map data;
                     if(balance > amount){
                       String sender = snapShot1.data()["address"];
                       String privatekey = snapShot1.data()["privatekey"];
                       String receiver = snapShot1.data()["receiver"];
                       if(currency=="eth"){
-                        makeTransaction(sender, privatekey, receiver, amount,currency);
+                        data = await makeTransaction(sender, privatekey, receiver, amount,currency);
                       }
                       else{
-                        makeTransaction(privatekey,privatekey,receiver,amount,currency);
+                        data = await makeTransaction(privatekey,privatekey,receiver,amount,currency);
                       }
+
                     }
                     FirebaseFirestore.instance
                         .collection("user")
                         .doc(uid)
                         .collection("pending")
                         .doc(snapShot1.id)
-                        .update({"status": "paid"}).then((value) {
+                        .update({"status": "paid",
+                                 "hash": data["hash"],
+                    }).then((value) {
                       Navigator.pop(context);
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => DashBoard()));
