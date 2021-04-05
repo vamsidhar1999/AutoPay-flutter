@@ -238,7 +238,7 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
                                         timestamp: timestamp,
                                         currency: currency,
                                         to: to,
-                                        hash: hash,
+                                        hash: hash.toString(),
                                         address: address
                                     ),
                                   );
