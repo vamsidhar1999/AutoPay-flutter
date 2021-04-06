@@ -1,3 +1,4 @@
+import 'package:autopayflutter/PaymentMsg.dart';
 import 'package:autopayflutter/maps/screens/search.dart';
 import 'package:autopayflutter/services/restapi.dart';
 import 'package:autopayflutter/things/CarRegister.dart';
@@ -199,9 +200,9 @@ class _DashBoardState extends State<DashBoard> {
                                             .where('thing', isEqualTo: 'car')
                                             .get();
                                         if(snapShot.size>0){
-                                          Navigator.push(context, MaterialPageRoute(builder: (context)=> ThingsDashBoard('car')));
+                                            Navigator.push(context, MaterialPageRoute(builder: (context)=> ThingsDashBoard('car')));
                                         }else{
-                                          Navigator.push(context, MaterialPageRoute(builder: (context)=> CarRegister()));
+                                         Navigator.push(context, MaterialPageRoute(builder: (context)=> CarRegister()));
                                         }
                                       },
                                     ),
@@ -322,6 +323,7 @@ class _DashBoardState extends State<DashBoard> {
                               var title = data["to"];
                               var thing = data["thing"];
                               var amount = data["amount"].toDouble();
+
                               titles.add(title);
                               things.add(thing);
                               amounts.add(amount);
@@ -452,6 +454,7 @@ class UpcomingCard extends StatelessWidget {
                     Map temp = await getBalance(thing);
                     int balance = temp["balance"];
                     int amount = snapShot1.data()["amount"];
+                    String recv=snapShot1.data()["receiver"];
                     String currency= snapShot1.data()["currency"];
                     Map data;
                     if(balance > amount){
@@ -474,9 +477,10 @@ class UpcomingCard extends StatelessWidget {
                         .update({"hash": data["hash"],
                               "status": "paid",
                     }).then((value) {
-                      print(data["hash"]);
-                      // Navigator.push(context,
-                      //     MaterialPageRoute(builder: (context) => DashBoard()));
+                      //PaymentMsg(amount,receiver,data["hash"]);
+                     // print(data["hash"]);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => PaymentMsg(amt:amount,rec:recv,hash:data["hash"])));
                     });
                   },
                 ),

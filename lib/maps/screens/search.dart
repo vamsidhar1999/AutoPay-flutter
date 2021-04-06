@@ -182,14 +182,3 @@ class Search extends StatelessWidget {
   }
 }
 
-/*class _MyState extends State<Search> {
-  Widget build(BuildContext context) {
-return Scaffold(
-  body: Center(
-    child: Container(
-      ,
-    ))
-)
-
-  }
-}*/
