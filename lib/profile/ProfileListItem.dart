@@ -5,10 +5,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ProfileListItem extends StatelessWidget {
   final IconData icon;
   final String text;
+  final int email_font;
   final bool hasNavigation;
 
   const ProfileListItem({
     Key key,
+    this.email_font,
     this.icon,
     this.text,
     this.hasNavigation = true,

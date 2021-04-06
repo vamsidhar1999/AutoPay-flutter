@@ -10,7 +10,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'models/BalanceCard.dart';
 import 'models/color.dart';
 import 'models/my_flutter_app_icons.dart';
@@ -400,6 +400,10 @@ class UpcomingCard extends StatelessWidget {
   final String title;
   final double value;
   final Color color;
+  final spinkit = SpinKitRotatingCircle(
+    color: Colors.white,
+    size: 50.0,
+  );
 
   UpcomingCard({this.title, this.value, this.color});
 
@@ -449,26 +453,30 @@ class UpcomingCard extends StatelessWidget {
                     int balance = temp["balance"];
                     int amount = snapShot1.data()["amount"];
                     String currency= snapShot1.data()["currency"];
+                    Map data;
                     if(balance > amount){
                       String sender = snapShot1.data()["address"];
                       String privatekey = snapShot1.data()["privatekey"];
                       String receiver = snapShot1.data()["receiver"];
                       if(currency=="eth"){
-                        makeTransaction(sender, privatekey, receiver, amount,currency);
+                        data = await makeTransaction(sender, privatekey, receiver, amount,currency);
                       }
                       else{
-                        makeTransaction(privatekey,privatekey,receiver,amount,currency);
+                        data = await makeTransaction(privatekey,privatekey,receiver,amount,currency);
                       }
                     }
+
                     FirebaseFirestore.instance
                         .collection("user")
                         .doc(uid)
                         .collection("pending")
                         .doc(snapShot1.id)
-                        .update({"status": "paid"}).then((value) {
-                      Navigator.pop(context);
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => DashBoard()));
+                        .update({"hash": data["hash"],
+                              "status": "paid",
+                    }).then((value) {
+                      print(data["hash"]);
+                      // Navigator.push(context,
+                      //     MaterialPageRoute(builder: (context) => DashBoard()));
                     });
                   },
                 ),

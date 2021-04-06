@@ -166,32 +166,32 @@ class _RegisterState extends State<Register> {
                     children: <Widget>[
                       textField("Name", name),
                       textField("Email", email),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 8.0),
-                        child: Container(
-                          padding: EdgeInsets.fromLTRB(10, 2, 10, 2),
-                          child: TextField(
-                            controller: date,
-                            onTap: () {
-                              _selectDate(context);
-                            },
-                            cursorColor: Colors.purple,
-                            style: TextStyle(fontSize: 20, color: Colors.black),
-                            decoration: InputDecoration(
-                              focusColor: Colors.white,
-                              labelStyle:
-                                  TextStyle(fontSize: 20, color: Colors.black),
-                              labelText: 'Date of Birth',
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.purple),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.purple),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 8.0),
+                      //   child: Container(
+                      //     padding: EdgeInsets.fromLTRB(10, 2, 10, 2),
+                      //     child: TextField(
+                      //       controller: date,
+                      //       onTap: () {
+                      //         _selectDate(context);
+                      //       },
+                      //       cursorColor: Colors.purple,
+                      //       style: TextStyle(fontSize: 20, color: Colors.black),
+                      //       decoration: InputDecoration(
+                      //         focusColor: Colors.white,
+                      //         labelStyle:
+                      //             TextStyle(fontSize: 20, color: Colors.black),
+                      //         labelText: 'Date of Birth',
+                      //         focusedBorder: OutlineInputBorder(
+                      //           borderSide: BorderSide(color: Colors.purple),
+                      //         ),
+                      //         enabledBorder: OutlineInputBorder(
+                      //           borderSide: BorderSide(color: Colors.purple),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Row(
@@ -245,64 +245,64 @@ class _RegisterState extends State<Register> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            GestureDetector(
-                              onTap: () => setState(() => _value = 0),
-                              child: Container(
-                                  // height: 50,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.4,
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                                    color: _value == 0
-                                        ? const Color(0xffeda5f0)
-                                        : Colors.transparent,
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Image(
-                                        image: AssetImage("images/diem.jpeg"),
-                                      ),
-                                      SizedBox(height: 5,),
-                                      Text('Diem', style: kTitleTextStyle.copyWith(
-                                          color: Colors.black, fontSize: 20, fontWeight: FontWeight.normal),),
-                                    ],
-                                  )),
-                            ),
-                            GestureDetector(
-                              onTap: () => setState(() => _value = 1),
-                              child: Container(
-                                  // height: 50,
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    color: _value == 1
-                                        ? const Color(0xffeda5f0)
-                                        : Colors.transparent,
-                                  ),
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.4,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Column(
-                                      children: [
-                                        Image(
-                                          image: AssetImage("images/eth.jpeg"),
-                                        ),
-                                        Text('Ethereum', style: kTitleTextStyle.copyWith(
-                                            color: Colors.black, fontSize: 20, fontWeight: FontWeight.normal),),
-                                      ],
-                                    ),
-                                  )),
-                            ),
-                          ],
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.all(12.0),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: <Widget>[
+                      //       GestureDetector(
+                      //         onTap: () => setState(() => _value = 0),
+                      //         child: Container(
+                      //             // height: 50,
+                      //             width:
+                      //                 MediaQuery.of(context).size.width * 0.4,
+                      //             decoration: BoxDecoration(
+                      //               borderRadius:
+                      //               BorderRadius.all(Radius.circular(20)),
+                      //               color: _value == 0
+                      //                   ? const Color(0xffeda5f0)
+                      //                   : Colors.transparent,
+                      //             ),
+                      //             child: Column(
+                      //               children: [
+                      //                 Image(
+                      //                   image: AssetImage("images/diem.jpeg"),
+                      //                 ),
+                      //                 SizedBox(height: 5,),
+                      //                 Text('Diem', style: kTitleTextStyle.copyWith(
+                      //                     color: Colors.black, fontSize: 20, fontWeight: FontWeight.normal),),
+                      //               ],
+                      //             )),
+                      //       ),
+                      //       GestureDetector(
+                      //         onTap: () => setState(() => _value = 1),
+                      //         child: Container(
+                      //             // height: 50,
+                      //             decoration: BoxDecoration(
+                      //               borderRadius:
+                      //                   BorderRadius.all(Radius.circular(20)),
+                      //               color: _value == 1
+                      //                   ? const Color(0xffeda5f0)
+                      //                   : Colors.transparent,
+                      //             ),
+                      //             width:
+                      //                 MediaQuery.of(context).size.width * 0.4,
+                      //             child: Padding(
+                      //               padding: const EdgeInsets.all(5.0),
+                      //               child: Column(
+                      //                 children: [
+                      //                   Image(
+                      //                     image: AssetImage("images/eth.jpeg"),
+                      //                   ),
+                      //                   Text('Ethereum', style: kTitleTextStyle.copyWith(
+                      //                       color: Colors.black, fontSize: 20, fontWeight: FontWeight.normal),),
+                      //                 ],
+                      //               ),
+                      //             )),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
                         child: Container(

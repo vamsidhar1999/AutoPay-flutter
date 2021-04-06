@@ -129,6 +129,7 @@ class _ProfileState extends State<Profile> {
                     icon: Icons.mail_outline,
                     text: email,
                     hasNavigation: false,
+                    email_font: 5,
                   ),
                   ProfileListItem(
                     icon: FontAwesomeIcons.genderless,

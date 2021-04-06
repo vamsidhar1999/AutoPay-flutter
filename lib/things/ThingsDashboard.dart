@@ -233,7 +233,7 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
                                 if(true) {
                                   usersList.add(
                                     TransactionDesign(
-                                        amount: amount.toString(),
+                                        amount: amount.toStringAsFixed(2),
                                         status: status,
                                         timestamp: timestamp,
                                         currency: currency,
