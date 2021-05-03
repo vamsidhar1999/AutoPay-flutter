@@ -3,9 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'models/color.dart';
-import 'models/color.dart';
-import 'models/color.dart';
-import 'models/color.dart';
 import 'models/my_flutter_app_icons.dart';
 
 class PaymentMsg extends StatefulWidget {
@@ -75,7 +72,6 @@ class _PaymentMsgState extends State<PaymentMsg> {
            ),),
        ],
      ),
-
    );
  }
 }
