@@ -211,7 +211,7 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
                     if (snapshot.hasData) {
                       return StreamBuilder<QuerySnapshot>(
                           stream: FirebaseFirestore.instance.collection('user').doc(uid).collection("thing")
-                              .doc(docID).collection('transactions').limit(5).orderBy("timestamp").snapshots(),
+                              .doc(docID).collection('transactions').limit(5).orderBy("timestamp", descending: true).snapshots(),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.waiting) {
                               return Center(child: CircularProgressIndicator());
@@ -317,7 +317,7 @@ class RecentTransactions extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                'Load Actinity',
+                'Load Activity',
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 18.0,
