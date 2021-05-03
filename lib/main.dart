@@ -1,10 +1,15 @@
 import 'package:autopayflutter/Authentication/SplashScreen.dart';
 import 'package:autopayflutter/DashBoard.dart';
+import 'package:autopayflutter/PaymentMsg.dart';
 
+import 'Authentication/SplashScreen.dart';
+import 'Authentication/SplashScreen.dart';
+import 'Authentication/SplashScreen.dart';
 import 'things/CarRegister.dart';
 import 'things/FridgeRegister.dart';
 import 'things/WasherRegister.dart';
 import 'things/ThingsDashboard.dart';
+import 'things/transactiondesign.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -15,6 +20,10 @@ import 'package:autopayflutter/maps/models/place.dart';
 import 'package:autopayflutter/maps/services/distance_service.dart';
 import 'package:autopayflutter/maps/services/geolocator_service.dart';
 import 'package:autopayflutter/maps/services/places_service.dart';
+
+import 'things/transactiondesign.dart';
+import 'things/transactiondesign.dart';
+import 'things/transactionsboard.dart';
 
 void main() {
   runApp(MyApp());

@@ -25,8 +25,12 @@ class TransactionDesign extends StatefulWidget {
 class _TransactionDesignState extends State<TransactionDesign> {
 
 
-  geturl(hash) async{
-    final String urlString = "http://ropsten.etherscan.io/tx/"+hash;
+  geturl(hash,currency) async{
+    String urlString;
+    if(currency=="eth")
+     urlString = "http://ropsten.etherscan.io/tx/"+hash;
+    else
+    urlString="https://diemscan.io/version/"+hash;
     print(urlString);
     if(await canLaunch(urlString)) {
       launch(
@@ -139,7 +143,7 @@ class _TransactionDesignState extends State<TransactionDesign> {
                   padding: const EdgeInsets.fromLTRB(8, 8, 0, 0),
                   child: GestureDetector(
                     onTap: () async{
-                      await geturl(widget.hash);
+                      await geturl(widget.hash,widget.currency);
                     },
                     child: Text(
                       "More Details",
