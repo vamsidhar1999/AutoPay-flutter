@@ -1,6 +1,7 @@
 import 'package:autopayflutter/Authentication/SplashScreen.dart';
 import 'package:autopayflutter/DashBoard.dart';
 import 'package:autopayflutter/PaymentMsg.dart';
+import 'package:autopayflutter/things/orderDetails.dart';
 
 import 'Authentication/SplashScreen.dart';
 import 'Authentication/SplashScreen.dart';
@@ -76,7 +77,7 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: SplashScreen(),
+        home: OrderDetails(),
       ),
     );
   }
