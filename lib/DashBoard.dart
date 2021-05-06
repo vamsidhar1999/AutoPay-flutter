@@ -155,7 +155,7 @@ class _DashBoardState extends State<DashBoard> {
                 ClipPath(
                   clipper: CustomShapeClipper(),
                   child: Container(
-                    height: 350.0,
+                    height:400.0,
                     decoration: BoxDecoration(color: primaryColor),
                   ),
                 ),
@@ -163,7 +163,7 @@ class _DashBoardState extends State<DashBoard> {
                   padding: EdgeInsets.only(top: 80.0, right: 25.0, left: 25.0),
                   child: Container(
                     width: double.infinity,
-                    height: 250.0,
+                    height: 280.0,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(20.0)),

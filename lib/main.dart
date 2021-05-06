@@ -73,6 +73,7 @@ class _MyAppState extends State<MyApp> {
         )
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Parking App',
         theme: ThemeData(
           primarySwatch: Colors.blue,

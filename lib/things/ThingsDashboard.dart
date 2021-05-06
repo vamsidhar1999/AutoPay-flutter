@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:custom_switch_button/custom_switch_button.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-// import 'package:flutter_switch/flutter_switch.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 class ThingsDashBoard extends StatefulWidget {
   String thing;
   ThingsDashBoard(this.thing);
@@ -40,6 +40,7 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
          thingname="Car status";
          thingstatus="Active";
       }
+
       else{
         thingname="Detergent Status";
         thingstatus="Low";
@@ -287,16 +288,16 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
                                   //   isChecked = !isChecked;
                                   // });
                                 },
-                                // child: Center(
-                                //   child: FlutterSwitch(
-                                //     value: isswitchon,
-                                //     onToggle: (value) {
-                                //       setState(() {
-                                //         isswitchon = value;
-                                //       });
-                                //     },
-                                //   ),
-                                // ),
+                                child: Center(
+                                  child: FlutterSwitch(
+                                    value: isswitchon,
+                                    onToggle: (value) {
+                                      setState(() {
+                                        isswitchon = value;
+                                      });
+                                    },
+                                  ),
+                                ),
                               ),
                             ],
                           )),
