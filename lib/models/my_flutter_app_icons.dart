@@ -21,6 +21,7 @@ class MyFlutterApp {
   static const _kFontFam = 'MyFlutterApp';
   static const String _kFontPkg = null;
 
-  static const IconData washer = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData smart_refrigerator = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData air_conditioner = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData washer = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData smart_refrigerator = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:custom_switch_button/custom_switch_button.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:flutter_switch/flutter_switch.dart';
+// import 'package:flutter_switch/flutter_switch.dart';
 class ThingsDashBoard extends StatefulWidget {
   String thing;
   ThingsDashBoard(this.thing);

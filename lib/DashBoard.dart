@@ -1,6 +1,7 @@
 import 'package:autopayflutter/PaymentMsg.dart';
 import 'package:autopayflutter/maps/screens/search.dart';
 import 'package:autopayflutter/services/restapi.dart';
+import 'package:autopayflutter/things/ACRegister.dart';
 import 'package:autopayflutter/things/CarRegister.dart';
 import 'package:autopayflutter/things/FridgeRegister.dart';
 import 'package:autopayflutter/things/ThingsDashboard.dart';
@@ -162,7 +163,7 @@ class _DashBoardState extends State<DashBoard> {
                   padding: EdgeInsets.only(top: 80.0, right: 25.0, left: 25.0),
                   child: Container(
                     width: double.infinity,
-                    height: 180.0,
+                    height: 250.0,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(20.0)),
@@ -176,7 +177,7 @@ class _DashBoardState extends State<DashBoard> {
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: 40.0, vertical: 40.0),
+                              horizontal: 50.0, vertical: 20.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -220,9 +221,84 @@ class _DashBoardState extends State<DashBoard> {
                                     color: Colors.purpleAccent.withOpacity(0.1),
                                     child: IconButton(
                                       padding: EdgeInsets.all(15.0),
+                                      icon: Icon(MyFlutterApp.washer),
+                                      color: Colors.purple,
+                                      iconSize: 30.0,
+                                      onPressed: () async {
+                                        var user = FirebaseAuth.instance.currentUser.uid;
+                                        var snapShot = await FirebaseFirestore.instance
+                                            .collection("user")
+                                            .doc(user)
+                                            .collection('thing')
+                                            .where('thing', isEqualTo: 'washer')
+                                            .get();
+                                        if(snapShot.size>0){
+                                          Navigator.push(context, MaterialPageRoute(builder: (context)=> ThingsDashBoard('washer')));
+                                        }else{
+                                          Navigator.push(context, MaterialPageRoute(builder: (context)=> WasherRegister()));
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(height: 8.0),
+                                  Text('Washer',
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.bold))
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 50.0, vertical: 20.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                children: <Widget>[
+                                  Material(
+                                    borderRadius: BorderRadius.circular(100.0),
+                                    color: Colors.purpleAccent.withOpacity(0.1),
+                                    child: IconButton(
+                                      padding: EdgeInsets.all(15.0),
+                                      icon: Icon(MyFlutterApp.air_conditioner),
+                                      color: Colors.purple,
+                                      iconSize: 30.0,
+                                      onPressed: () async {
+                                        var user = FirebaseAuth.instance.currentUser.uid;
+                                        var snapShot = await FirebaseFirestore.instance
+                                            .collection("user")
+                                            .doc(user)
+                                            .collection('thing')
+                                            .where('thing', isEqualTo: 'ac')
+                                            .get();
+                                        if(snapShot.size>0){
+                                          Navigator.push(context, MaterialPageRoute(builder: (context)=> ThingsDashBoard('ac')));
+                                        }else{
+                                          Navigator.push(context, MaterialPageRoute(builder: (context)=> ACRegister()));
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(height: 8.0),
+                                  Text('AC',
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.bold))
+                                ],
+                              ),
+                              Column(
+                                children: <Widget>[
+                                  Material(
+                                    borderRadius: BorderRadius.circular(100.0),
+                                    color: Colors.purpleAccent.withOpacity(0.1),
+                                    child: IconButton(
+                                      padding: EdgeInsets.all(15.0),
                                       icon:
                                       Icon(MyFlutterApp.smart_refrigerator),
-                                      color: Colors.deepPurple,
+                                      color: Colors.purple,
                                       iconSize: 30.0,
                                       onPressed: () async {
                                         var user = FirebaseAuth.instance.currentUser.uid;
@@ -249,77 +325,6 @@ class _DashBoardState extends State<DashBoard> {
                               ),
                             ],
                           ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: <Widget>[
-                                Material(
-                                  borderRadius: BorderRadius.circular(100.0),
-                                  color: Colors.blueAccent.withOpacity(0.1),
-                                  child: IconButton(
-                                    padding: EdgeInsets.all(15.0),
-                                    icon: Icon(MyFlutterApp.washer),
-                                    color: Colors.blueAccent,
-                                    iconSize: 30.0,
-                                    onPressed: () async {
-                                      var user = FirebaseAuth.instance.currentUser.uid;
-                                      var snapShot = await FirebaseFirestore.instance
-                                          .collection("user")
-                                          .doc(user)
-                                          .collection('thing')
-                                          .where('thing', isEqualTo: 'washer')
-                                          .get();
-                                      if(snapShot.size>0){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> ThingsDashBoard('washer')));
-                                      }else{
-                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> WasherRegister()));
-                                      }
-                                    },
-                                  ),
-                                ),
-                                SizedBox(height: 8.0),
-                                Text('Washer',
-                                    style: TextStyle(
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.bold))
-                              ],
-                            ),
-                            Column(
-                              children: <Widget>[
-                                Material(
-                                  borderRadius: BorderRadius.circular(100.0),
-                                  color: Colors.blueAccent.withOpacity(0.1),
-                                  child: IconButton(
-                                    padding: EdgeInsets.all(15.0),
-                                    icon: Icon(MyFlutterApp.washer),
-                                    color: Colors.blueAccent,
-                                    iconSize: 30.0,
-                                    onPressed: () async {
-                                      var user = FirebaseAuth.instance.currentUser.uid;
-                                      var snapShot = await FirebaseFirestore.instance
-                                          .collection("user")
-                                          .doc(user)
-                                          .collection('thing')
-                                          .where('thing', isEqualTo: 'ac')
-                                          .get();
-                                      if(snapShot.size>0){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> ThingsDashBoard('washer')));
-                                      }else{
-                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> WasherRegister()));
-                                      }
-                                    },
-                                  ),
-                                ),
-                                SizedBox(height: 8.0),
-                                Text('AC',
-                                    style: TextStyle(
-                                        color: Colors.black54,
-                                        fontWeight: FontWeight.bold))
-                              ],
-                            )
-                          ],
                         )
                       ],
                     ),
