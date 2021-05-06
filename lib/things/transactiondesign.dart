@@ -1,3 +1,4 @@
+import 'package:autopayflutter/things/orderDetails.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -69,7 +70,7 @@ class _TransactionDesignState extends State<TransactionDesign> {
               children: <Widget>[
                 CircleAvatar(
                   backgroundColor: Colors.white,
-                  child: Icon(FontAwesomeIcons.parking,color: Colors.purple,),
+                  child: Icon(FontAwesomeIcons.was,color: Colors.purple,),
                   // borderRadius: BorderRadius.circular(15.0),
                   // child: Image.network(
                   //   "https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358_960_720.jpg",
@@ -143,6 +144,11 @@ class _TransactionDesignState extends State<TransactionDesign> {
                   padding: const EdgeInsets.fromLTRB(8, 8, 0, 0),
                   child: GestureDetector(
                     onTap: () async{
+                      if(widget.to=="Detergent"){
+                        String url="https://diemscan.io/version/"+widget.hash;
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> OrderDetails(url: url,)));
+                      }
+                      else
                       await geturl(widget.hash,widget.currency);
                     },
                     child: Text(
