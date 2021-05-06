@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'ACorderDetails.dart';
+
 class TransactionDesign extends StatefulWidget {
 
   final String currency,status,hash,to,amount,address;
@@ -148,8 +150,13 @@ class _TransactionDesignState extends State<TransactionDesign> {
                         String url="https://diemscan.io/version/"+widget.hash;
                         Navigator.push(context, MaterialPageRoute(builder: (context)=> OrderDetails(url: url,)));
                       }
+                      else if(widget.to=="Ac Service"){
+                        String url="https://diemscan.io/version/"+widget.hash;
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> ACOrderDetails(url: url,)));
+                      }
                       else
-                      await geturl(widget.hash,widget.currency);
+                      await geturl(widget
+                          .hash,widget.currency);
                     },
                     child: Text(
                       "More Details",

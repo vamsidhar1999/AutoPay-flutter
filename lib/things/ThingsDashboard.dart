@@ -40,6 +40,10 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
          thingname="Car status";
          thingstatus="Active";
       }
+      else if(thing =='ac'){
+        thingname="AC status";
+        thingstatus="Active";
+      }
       else{
         thingname="Detergent Status";
         thingstatus="Low";
