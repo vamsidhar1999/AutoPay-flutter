@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:custom_switch_button/custom_switch_button.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter_switch/flutter_switch.dart';
+
 class ThingsDashBoard extends StatefulWidget {
   String thing;
   ThingsDashBoard(this.thing);
@@ -28,25 +29,23 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
   String docID = "";
   String balance = "0.0";
   var currency = "";
-  String thingname="";
-  String thingstatus="";
-  bool isswitchon=false;
-
+  String thingname = "";
+  String thingstatus = "";
+  bool isswitchon = false;
 
   _getBalance() async {
     setState(() {
-      if(thing=='car')
-      {
-         thingname="Car status";
-         thingstatus="Active";
-      }
-
-      else{
-        thingname="Detergent Status";
-        thingstatus="Low";
+      if (thing == 'car') {
+        thingname = "Car status";
+        thingstatus = "Active";
+      } else if (thing == 'ac') {
+        thingname = "AC status";
+        thingstatus = "Active";
+      } else {
+        thingname = "Detergent Status";
+        thingstatus = "Low";
       }
     });
-
 
     var balanceJson = await getBalance(thing);
     setState(() {
@@ -259,7 +258,7 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
                             children: [
                               Text(thingname),
                               Text(
-                              thingstatus,
+                                thingstatus,
                                 style:
                                     TextStyle(color: Colors.red, fontSize: 25),
                               ),
@@ -334,7 +333,8 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return Center(child: CircularProgressIndicator());
+                                return Center(
+                                    child: CircularProgressIndicator());
                               }
                               if (snapshot.hasData) {
                                 List<Widget> usersList = [];

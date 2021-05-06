@@ -25,7 +25,7 @@ class _RegisterState extends State<Register> {
 
   _register() async {
     final user = FirebaseAuth.instance.currentUser;
-    String notification_token = await _getNotificationToken();
+    String token = await _getNotificationToken();
     Map<String, dynamic> data = <String, dynamic>{
       "name": name.text,
       "email": email.text,
@@ -33,7 +33,7 @@ class _RegisterState extends State<Register> {
       "gender": gender_value == 0 ? "Male": "Female",
       "mobile": user.phoneNumber,
       "currency": _value == 0 ? "diem" : "eth",
-      "notification_token": notification_token
+      "token": token
     };
     print(user.uid);
     FirebaseFirestore.instance
