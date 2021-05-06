@@ -44,8 +44,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
                 colors: [
-                  Color(0xfffe82a7),
-                  Color(0xfffe82a7),
+                  Colors.purple,
+                  Colors.purpleAccent,
                 ])),
         child: Center(
             child: Column(

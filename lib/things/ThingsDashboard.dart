@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:custom_switch_button/custom_switch_button.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-
+import 'package:flutter_switch/flutter_switch.dart';
 class ThingsDashBoard extends StatefulWidget {
   String thing;
   ThingsDashBoard(this.thing);
@@ -28,8 +28,25 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
   String docID = "";
   String balance = "0.0";
   var currency = "";
+  String thingname="";
+  String thingstatus="";
+  bool isswitchon=false;
+
 
   _getBalance() async {
+    setState(() {
+      if(thing=='car')
+      {
+         thingname="Car status";
+         thingstatus="Active";
+      }
+      else{
+        thingname="Detergent Status";
+        thingstatus="Low";
+      }
+    });
+
+
     var balanceJson = await getBalance(thing);
     setState(() {
       balance = (double.parse(balanceJson["balance"].toString()) / 1000)
@@ -239,9 +256,9 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text("Detergent Status"),
+                              Text(thingname),
                               Text(
-                                "Low",
+                              thingstatus,
                                 style:
                                     TextStyle(color: Colors.red, fontSize: 25),
                               ),
@@ -266,17 +283,18 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
                               Text("Payment Mode"),
                               GestureDetector(
                                 onTap: () {
-                                  setState(() {
-                                    isChecked = !isChecked;
-                                  });
+                                  // setState(() {
+                                  //   isChecked = !isChecked;
+                                  // });
                                 },
                                 child: Center(
-                                  child: CustomSwitchButton(
-                                    backgroundColor: Colors.blue,
-                                    unCheckedColor: Colors.white,
-                                    animationDuration: Duration(milliseconds: 400),
-                                    checkedColor: Colors.lightGreen,
-                                    checked: isChecked,
+                                  child: FlutterSwitch(
+                                    value: isswitchon,
+                                    onToggle: (value) {
+                                      setState(() {
+                                        isswitchon = value;
+                                      });
+                                    },
                                   ),
                                 ),
                               ),
@@ -295,76 +313,79 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                FutureBuilder(
-                  future: _getDetails(),
-                  builder: (context, snapshot) {
-                    print(uid);
-                    if (snapshot.hasData) {
-                      return StreamBuilder<QuerySnapshot>(
-                          stream: FirebaseFirestore.instance
-                              .collection('user')
-                              .doc(uid)
-                              .collection("thing")
-                              .doc(docID)
-                              .collection('transactions')
-                              .limit(5)
-                              .orderBy("timestamp", descending: true)
-                              .snapshots(),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return Center(child: CircularProgressIndicator());
-                            }
-                            if (snapshot.hasData) {
-                              List<Widget> usersList = [];
-                              final docs = snapshot.data.docs;
-                              // print(docs);
-                              for (var document in docs) {
-                                print(document.data);
-                                var data = document.data();
-                                var address = data['address'];
-                                var amount = data['amount'];
-                                var currency = data['currency'];
-                                var timestamp = data['timestamp'];
-                                var to = data['to'];
-                                var hash = data['hash'];
-                                var status = data['status'];
-                                if (true) {
-                                  usersList.add(
-                                    TransactionDesign(
-                                        amount: amount.toStringAsFixed(2),
-                                        status: status,
-                                        timestamp: timestamp,
-                                        currency: currency,
-                                        to: to,
-                                        hash: hash.toString(),
-                                        address: address),
+                SingleChildScrollView(
+                  physics: ScrollPhysics(),
+                  child: FutureBuilder(
+                    future: _getDetails(),
+                    builder: (context, snapshot) {
+                      print(uid);
+                      if (snapshot.hasData) {
+                        return StreamBuilder<QuerySnapshot>(
+                            stream: FirebaseFirestore.instance
+                                .collection('user')
+                                .doc(uid)
+                                .collection("thing")
+                                .doc(docID)
+                                .collection('transactions')
+                                .limit(5)
+                                .orderBy("timestamp", descending: true)
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Center(child: CircularProgressIndicator());
+                              }
+                              if (snapshot.hasData) {
+                                List<Widget> usersList = [];
+                                final docs = snapshot.data.docs;
+                                // print(docs);
+                                for (var document in docs) {
+                                  print(document.data);
+                                  var data = document.data();
+                                  var address = data['address'];
+                                  var amount = data['amount'];
+                                  var currency = data['currency'];
+                                  var timestamp = data['timestamp'];
+                                  var to = data['to'];
+                                  var hash = data['hash'];
+                                  var status = data['status'];
+                                  if (true) {
+                                    usersList.add(
+                                      TransactionDesign(
+                                          amount: amount.toStringAsFixed(2),
+                                          status: status,
+                                          timestamp: timestamp,
+                                          currency: currency,
+                                          to: to,
+                                          hash: hash.toString(),
+                                          address: address),
+                                    );
+                                  }
+                                }
+                                if (usersList.isEmpty) {
+                                  return Container(
+                                    child: Center(
+                                      child: Text(
+                                        '🙁 No Records Found',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                            color: Colors.grey),
+                                      ),
+                                    ),
                                   );
                                 }
-                              }
-                              if (usersList.isEmpty) {
-                                return Container(
-                                  child: Center(
-                                    child: Text(
-                                      '🙁 No Records Found',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.grey),
-                                    ),
-                                  ),
+                                return ListView(
+                                  shrinkWrap: true,
+                                  children: usersList,
                                 );
                               }
-                              return ListView(
-                                shrinkWrap: true,
-                                children: usersList,
-                              );
-                            }
-                            return Container();
-                          });
-                    }
-                    return Container();
-                  },
+                              return Container();
+                            });
+                      }
+                      return Container();
+                    },
+                  ),
                 )
               ],
             ),

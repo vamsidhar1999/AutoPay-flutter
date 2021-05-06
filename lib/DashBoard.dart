@@ -90,9 +90,8 @@ class _DashBoardState extends State<DashBoard> {
       children: <Widget>[
         GestureDetector(
           child: CircleAvatar(
-            backgroundImage: NetworkImage(
-                "https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg.jpg"),
-          ),
+           child: Icon(FontAwesomeIcons.user),),
+
           onTap: () {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Profile()));
@@ -337,7 +336,7 @@ class _DashBoardState extends State<DashBoard> {
                                 child: Container(
                                   child: Center(
                                     child: Text(
-                                      '🙁 No pending transactions',
+                                      'No pending transactions',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20,

@@ -70,7 +70,7 @@ class _TransactionDesignState extends State<TransactionDesign> {
               children: <Widget>[
                 CircleAvatar(
                   backgroundColor: Colors.white,
-                  child: Icon(FontAwesomeIcons.was,color: Colors.purple,),
+                  child: Icon(FontAwesomeIcons.parking,color: Colors.purple,),
                   // borderRadius: BorderRadius.circular(15.0),
                   // child: Image.network(
                   //   "https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358_960_720.jpg",
