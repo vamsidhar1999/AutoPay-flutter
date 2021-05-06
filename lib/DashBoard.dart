@@ -247,42 +247,80 @@ class _DashBoardState extends State<DashBoard> {
                                           fontWeight: FontWeight.bold))
                                 ],
                               ),
-                              Column(
-                                children: <Widget>[
-                                  Material(
-                                    borderRadius: BorderRadius.circular(100.0),
-                                    color: Colors.blueAccent.withOpacity(0.1),
-                                    child: IconButton(
-                                      padding: EdgeInsets.all(15.0),
-                                      icon: Icon(MyFlutterApp.washer),
-                                      color: Colors.blueAccent,
-                                      iconSize: 30.0,
-                                      onPressed: () async {
-                                        var user = FirebaseAuth.instance.currentUser.uid;
-                                        var snapShot = await FirebaseFirestore.instance
-                                            .collection("user")
-                                            .doc(user)
-                                            .collection('thing')
-                                            .where('thing', isEqualTo: 'washer')
-                                            .get();
-                                        if(snapShot.size>0){
-                                          Navigator.push(context, MaterialPageRoute(builder: (context)=> ThingsDashBoard('washer')));
-                                        }else{
-                                          Navigator.push(context, MaterialPageRoute(builder: (context)=> WasherRegister()));
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                  SizedBox(height: 8.0),
-                                  Text('Washer',
-                                      style: TextStyle(
-                                          color: Colors.black54,
-                                          fontWeight: FontWeight.bold))
-                                ],
-                              )
                             ],
                           ),
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: <Widget>[
+                                Material(
+                                  borderRadius: BorderRadius.circular(100.0),
+                                  color: Colors.blueAccent.withOpacity(0.1),
+                                  child: IconButton(
+                                    padding: EdgeInsets.all(15.0),
+                                    icon: Icon(MyFlutterApp.washer),
+                                    color: Colors.blueAccent,
+                                    iconSize: 30.0,
+                                    onPressed: () async {
+                                      var user = FirebaseAuth.instance.currentUser.uid;
+                                      var snapShot = await FirebaseFirestore.instance
+                                          .collection("user")
+                                          .doc(user)
+                                          .collection('thing')
+                                          .where('thing', isEqualTo: 'washer')
+                                          .get();
+                                      if(snapShot.size>0){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> ThingsDashBoard('washer')));
+                                      }else{
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> WasherRegister()));
+                                      }
+                                    },
+                                  ),
+                                ),
+                                SizedBox(height: 8.0),
+                                Text('Washer',
+                                    style: TextStyle(
+                                        color: Colors.black54,
+                                        fontWeight: FontWeight.bold))
+                              ],
+                            ),
+                            Column(
+                              children: <Widget>[
+                                Material(
+                                  borderRadius: BorderRadius.circular(100.0),
+                                  color: Colors.blueAccent.withOpacity(0.1),
+                                  child: IconButton(
+                                    padding: EdgeInsets.all(15.0),
+                                    icon: Icon(MyFlutterApp.washer),
+                                    color: Colors.blueAccent,
+                                    iconSize: 30.0,
+                                    onPressed: () async {
+                                      var user = FirebaseAuth.instance.currentUser.uid;
+                                      var snapShot = await FirebaseFirestore.instance
+                                          .collection("user")
+                                          .doc(user)
+                                          .collection('thing')
+                                          .where('thing', isEqualTo: 'ac')
+                                          .get();
+                                      if(snapShot.size>0){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> ThingsDashBoard('washer')));
+                                      }else{
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> WasherRegister()));
+                                      }
+                                    },
+                                  ),
+                                ),
+                                SizedBox(height: 8.0),
+                                Text('AC',
+                                    style: TextStyle(
+                                        color: Colors.black54,
+                                        fontWeight: FontWeight.bold))
+                              ],
+                            )
+                          ],
+                        )
                       ],
                     ),
                   ),

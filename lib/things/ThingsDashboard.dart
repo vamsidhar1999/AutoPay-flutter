@@ -287,16 +287,16 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
                                   //   isChecked = !isChecked;
                                   // });
                                 },
-                                child: Center(
-                                  child: FlutterSwitch(
-                                    value: isswitchon,
-                                    onToggle: (value) {
-                                      setState(() {
-                                        isswitchon = value;
-                                      });
-                                    },
-                                  ),
-                                ),
+                                // child: Center(
+                                //   child: FlutterSwitch(
+                                //     value: isswitchon,
+                                //     onToggle: (value) {
+                                //       setState(() {
+                                //         isswitchon = value;
+                                //       });
+                                //     },
+                                //   ),
+                                // ),
                               ),
                             ],
                           )),
