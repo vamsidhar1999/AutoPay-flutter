@@ -151,7 +151,7 @@ class _TransactionDesignState extends State<TransactionDesign> {
                         Navigator.push(context, MaterialPageRoute(builder: (context)=> OrderDetails(url: url,)));
                       }
                       else if(widget.to=="Ac Service"){
-                        String url="https://diemscan.io/version/"+widget.hash;
+                        String url="http://ropsten.etherscan.io/tx/"+widget.hash;
                         Navigator.push(context, MaterialPageRoute(builder: (context)=> ACOrderDetails(url: url,)));
                       }
                       else

@@ -31,9 +31,19 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
   var currency = "";
   String thingname = "";
   String thingstatus = "";
-  bool isswitchon = false;
+  bool isswitchon = true;
 
   _getBalance() async {
+    uid = FirebaseAuth.instance.currentUser.uid;
+    var snapShot1 = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(uid)
+        .collection("thing")
+        .where("thing", isEqualTo: thing)
+        .get();
+    setState(() {
+      currency = snapShot1.docs[0].data()["currency"];
+    });
     setState(() {
       if (thing == 'car') {
         thingname = "Car status";
@@ -49,20 +59,15 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
 
     var balanceJson = await getBalance(thing);
     setState(() {
-      balance = (double.parse(balanceJson["balance"].toString()) / 1000)
+      if(currency=="eth")
+      balance = (double.parse(balanceJson["balance"].toString()) / 10000000000000)
           .toStringAsFixed(2);
+      else
+        balance = (double.parse(balanceJson["balance"].toString()) / 1000)
+            .toStringAsFixed(2);
     });
     print(balance);
-    uid = FirebaseAuth.instance.currentUser.uid;
-    var snapShot1 = await FirebaseFirestore.instance
-        .collection("user")
-        .doc(uid)
-        .collection("thing")
-        .where("thing", isEqualTo: thing)
-        .get();
-    setState(() {
-      currency = snapShot1.docs[0].data()["currency"];
-    });
+
   }
 
   Future _getDetails() async {
@@ -96,7 +101,7 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
       ClickPerMonth('May', 76, Colors.purple),
       ClickPerMonth('Jun', 35, Colors.blue),
     ];
-    bool isChecked = false;
+    bool isChecked = true;
 
     var series = [
       new charts.Series(
@@ -290,6 +295,7 @@ class _ThingsDashBoardState extends State<ThingsDashBoard> {
                                 child: Center(
                                   child: FlutterSwitch(
                                     value: isswitchon,
+                                    showOnOff: true,
                                     onToggle: (value) {
                                       setState(() {
                                         isswitchon = value;

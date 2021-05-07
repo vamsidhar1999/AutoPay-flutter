@@ -31,6 +31,7 @@ Future<Map> getBalance(String thing) async {
       .get(uri);
   Map data = jsonDecode(response.body);
   print(data);
+
   return data;
 }
 

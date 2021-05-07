@@ -106,7 +106,7 @@ class _ACOrderDetailsState extends State<ACOrderDetails> {
                                                 SizedBox(
                                                   height: 20,
                                                 ),
-                                                Text("Total Amount: 300 Diem", style: TextStyle(color: Colors.white,fontSize: 13),),
+                                                Text("Total Amount: 300 Eth", style: TextStyle(color: Colors.white,fontSize: 13),),
                                               ],
                                             ),
                                           )
